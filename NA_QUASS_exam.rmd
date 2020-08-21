@@ -251,13 +251,15 @@ kable(list(friend.selection_norm_1,friend.selection_norm_2),
   booktabs = TRUE,
   linesep = "", # necessary for avoiding line break 
   caption = "Normalized Sub-graphs Density for Sex", 
-  align = "l",format = "latex", digits=2) 
+  align = "l",format = "latex", digits=2)  %>% 
+  kable_styling(latex_options = c("HOLD_position"))
 
 kable(list(drink.selection_norm_1,drink.selection_norm_2),
   booktabs = TRUE,
   linesep = "", # necessary for avoiding line break 
   caption = "Normalized Sub-graphs Density for Drinking", 
-  align = "l",format = "latex", digits=2) 
+  align = "l",format = "latex", digits=2) %>% 
+  kable_styling(latex_options = c("HOLD_position"))
 
 ```
 
@@ -736,14 +738,8 @@ We hope that further research will shed light on some of these points with the a
 # References
 
 
-```{r, child = "NA_QUASS_exam_script_appendix.rmd"}
-```
-
-
 <div id="refs"></div>
 
 ```{r, child = "NA_QUASS_exam_appendix.rmd"}
 ```
-
-
 

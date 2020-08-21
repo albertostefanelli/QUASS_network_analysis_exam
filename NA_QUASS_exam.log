@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2020.2.21)  21 AUG 2020 19:50
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2020.2.21)  21 AUG 2020 20:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -855,7 +855,7 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 \openout5 = `NA_QUASS_exam.lot'.
 
 [3] [4] [5] [6]
-<NA_QUASS_exam_files/figure-latex/unnamed-chunk-3-1.pdf, id=142, 329.23pt x 382
+<NA_QUASS_exam_files/figure-latex/unnamed-chunk-3-1.pdf, id=140, 329.23pt x 382
 .42876pt>
 File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-3-1.pdf Graphic file (type
  pdf)
@@ -863,7 +863,7 @@ File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-3-1.pdf Graphic file (type
 Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-3-1.pdf
   used on input line 327.
 (pdftex.def)             Requested size: 234.88022pt x 272.83344pt.
-<NA_QUASS_exam_files/figure-latex/unnamed-chunk-3-2.pdf, id=143, 339.2675pt x 3
+<NA_QUASS_exam_files/figure-latex/unnamed-chunk-3-2.pdf, id=141, 339.2675pt x 3
 85.44pt>
 File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-3-2.pdf Graphic file (type
  pdf)
@@ -891,19 +891,19 @@ ble.2}) has been already used, duplicate ignored
                                                   \fi \fi 
 l.508 
       ] [11pdfTeX warning (ext4): destination with the same identifier (name{ta
-ble.4}) has been already used, duplicate ignored
+ble.3}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.594 
-      pdfTeX warning (ext4): destination with the same identifier (name{table.3
+l.579 
+      pdfTeX warning (ext4): destination with the same identifier (name{table.4
 }) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.594 
+l.579 
       ]
-<NA_QUASS_exam_files/figure-latex/unnamed-chunk-8-1.pdf, id=196, 443.6575pt x 4
+<NA_QUASS_exam_files/figure-latex/unnamed-chunk-8-1.pdf, id=192, 443.6575pt x 4
 34.62375pt>
 File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-8-1.pdf Graphic file (type
  pdf)
@@ -911,7 +911,7 @@ File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-8-1.pdf Graphic file (type
 Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-8-1.pdf
   used on input line 610.
 (pdftex.def)             Requested size: 234.87332pt x 230.09084pt.
-<NA_QUASS_exam_files/figure-latex/unnamed-chunk-8-2.pdf, id=197, 443.6575pt x 4
+<NA_QUASS_exam_files/figure-latex/unnamed-chunk-8-2.pdf, id=193, 443.6575pt x 4
 34.62375pt>
 File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-8-2.pdf Graphic file (type
  pdf)
@@ -924,7 +924,15 @@ Overfull \hbox (2.21384pt too wide) in paragraph at lines 610--612
 [][] [] 
  []
 
-<NA_QUASS_exam_files/figure-latex/unnamed-chunk-9-1.pdf, id=198, 443.6575pt x 4
+[12pdfTeX warning (ext4): destination with the same identifier (name{table.5}) 
+has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.613 \includegraphics
+                      [width=0.5\linewidth]{NA_QUASS_exam_files/figure-latex...
+]
+<NA_QUASS_exam_files/figure-latex/unnamed-chunk-9-1.pdf, id=203, 443.6575pt x 4
 34.62375pt>
 File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-9-1.pdf Graphic file (type
  pdf)
@@ -932,7 +940,7 @@ File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-9-1.pdf Graphic file (type
 Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-9-1.pdf
   used on input line 613.
 (pdftex.def)             Requested size: 234.87332pt x 230.09084pt.
-<NA_QUASS_exam_files/figure-latex/unnamed-chunk-9-2.pdf, id=199, 443.6575pt x 4
+<NA_QUASS_exam_files/figure-latex/unnamed-chunk-9-2.pdf, id=204, 443.6575pt x 4
 34.62375pt>
 File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-9-2.pdf Graphic file (type
  pdf)
@@ -945,18 +953,18 @@ Overfull \hbox (2.21384pt too wide) in paragraph at lines 613--615
 [][] [] 
  []
 
-[12pdfTeX warning (ext4): destination with the same identifier (name{table.5}) 
-has been already used, duplicate ignored
+[13 <./NA_QUASS_exam_files/figure-latex/unnamed-chunk-8-1.pdf> <./NA_QUASS_exam
+_files/figure-latex/unnamed-chunk-8-2.pdf> <./NA_QUASS_exam_files/figure-latex/
+unnamed-chunk-9-1.pdf> <./NA_QUASS_exam_files/figure-latex/unnamed-chunk-9-2.pd
+f>] [14pdfTeX warning (ext4): destination with the same identifier (name{table.
+6}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.616 F
-       ew notable patterns emerge from the violin plots. First, the triad 021U 
-<./NA_QUASS_exam_files/figure-latex/unnamed-chunk-8-1.pdf> <./NA_QUASS_exam_fil
-es/figure-latex/unnamed-chunk-8-2.pdf>] [13 <./NA_QUASS_exam_files/figure-latex
-/unnamed-chunk-9-1.pdf> <./NA_QUASS_exam_files/figure-latex/unnamed-chunk-9-2.p
-df>]
-<NA_QUASS_exam_files/figure-latex/unnamed-chunk-11-1.pdf, id=246, 329.23pt x 38
+l.688 \includegraphics
+                      [width=0.5\linewidth]{NA_QUASS_exam_files/figure-latex...
+]
+<NA_QUASS_exam_files/figure-latex/unnamed-chunk-11-1.pdf, id=248, 329.23pt x 38
 2.42876pt>
 File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-11-1.pdf Graphic file (typ
 e pdf)
@@ -964,7 +972,7 @@ e pdf)
 Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-11-1.pd
 f  used on input line 688.
 (pdftex.def)             Requested size: 234.88022pt x 272.83344pt.
-<NA_QUASS_exam_files/figure-latex/unnamed-chunk-11-2.pdf, id=247, 357.335pt x 3
+<NA_QUASS_exam_files/figure-latex/unnamed-chunk-11-2.pdf, id=249, 357.335pt x 3
 99.4925pt>
 File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-11-2.pdf Graphic file (typ
 e pdf)
@@ -972,7 +980,7 @@ e pdf)
 Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-11-2.pd
 f  used on input line 689.
 (pdftex.def)             Requested size: 234.87672pt x 262.58691pt.
-<NA_QUASS_exam_files/figure-latex/unnamed-chunk-11-3.pdf, id=248, 354.32375pt x
+<NA_QUASS_exam_files/figure-latex/unnamed-chunk-11-3.pdf, id=250, 354.32375pt x
  399.4925pt>
 File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-11-3.pdf Graphic file (typ
 e pdf)
@@ -980,7 +988,7 @@ e pdf)
 Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-11-3.pd
 f  used on input line 690.
 (pdftex.def)             Requested size: 234.88164pt x 264.82405pt.
-<NA_QUASS_exam_files/figure-latex/unnamed-chunk-11-4.pdf, id=249, 355.3275pt x 
+<NA_QUASS_exam_files/figure-latex/unnamed-chunk-11-4.pdf, id=251, 355.3275pt x 
 399.4925pt>
 File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-11-4.pdf Graphic file (typ
 e pdf)
@@ -998,17 +1006,11 @@ Overfull \hbox (2.23438pt too wide) in paragraph at lines 688--692
 [] [] 
  []
 
-[14pdfTeX warning (ext4): destination with the same identifier (name{table.6}) 
-has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.692 
-      ] [15 <./NA_QUASS_exam_files/figure-latex/unnamed-chunk-11-1.pdf> <./NA_Q
-UASS_exam_files/figure-latex/unnamed-chunk-11-2.pdf> <./NA_QUASS_exam_files/fig
-ure-latex/unnamed-chunk-11-3.pdf> <./NA_QUASS_exam_files/figure-latex/unnamed-c
-hunk-11-4.pdf>]
-<NA_QUASS_exam_files/figure-latex/unnamed-chunk-12-1.pdf, id=303, 339.2675pt x 
+[15 <./NA_QUASS_exam_files/figure-latex/unnamed-chunk-11-1.pdf> <./NA_QUASS_exa
+m_files/figure-latex/unnamed-chunk-11-2.pdf> <./NA_QUASS_exam_files/figure-late
+x/unnamed-chunk-11-3.pdf> <./NA_QUASS_exam_files/figure-latex/unnamed-chunk-11-
+4.pdf>]
+<NA_QUASS_exam_files/figure-latex/unnamed-chunk-12-1.pdf, id=300, 339.2675pt x 
 385.44pt>
 File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-12-1.pdf Graphic file (typ
 e pdf)
@@ -1016,7 +1018,7 @@ e pdf)
 Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-12-1.pd
 f  used on input line 731.
 (pdftex.def)             Requested size: 234.87651pt x 266.84196pt.
-<NA_QUASS_exam_files/figure-latex/unnamed-chunk-12-2.pdf, id=304, 356.33125pt x
+<NA_QUASS_exam_files/figure-latex/unnamed-chunk-12-2.pdf, id=301, 356.33125pt x
  399.4925pt>
 File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-12-2.pdf Graphic file (typ
 e pdf)
@@ -1024,7 +1026,7 @@ e pdf)
 Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-12-2.pd
 f  used on input line 732.
 (pdftex.def)             Requested size: 234.87486pt x 263.3245pt.
-<NA_QUASS_exam_files/figure-latex/unnamed-chunk-12-3.pdf, id=305, 354.32375pt x
+<NA_QUASS_exam_files/figure-latex/unnamed-chunk-12-3.pdf, id=302, 354.32375pt x
  399.4925pt>
 File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-12-3.pdf Graphic file (typ
 e pdf)
@@ -1032,7 +1034,7 @@ e pdf)
 Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-12-3.pd
 f  used on input line 733.
 (pdftex.def)             Requested size: 234.88164pt x 264.82405pt.
-<NA_QUASS_exam_files/figure-latex/unnamed-chunk-12-4.pdf, id=306, 355.3275pt x 
+<NA_QUASS_exam_files/figure-latex/unnamed-chunk-12-4.pdf, id=303, 355.3275pt x 
 399.4925pt>
 File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-12-4.pdf Graphic file (typ
 e pdf)
@@ -1050,35 +1052,35 @@ Overfull \hbox (2.23438pt too wide) in paragraph at lines 731--735
 [] [] 
  []
 
-[16 <./NA_QUASS_exam_files/figure-latex/unnamed-chunk-12-1.pdf> <./NA_QUASS_exa
-m_files/figure-latex/unnamed-chunk-12-2.pdf>] [17 <./NA_QUASS_exam_files/figure
+[16] [17 <./NA_QUASS_exam_files/figure-latex/unnamed-chunk-12-1.pdf> <./NA_QUAS
+S_exam_files/figure-latex/unnamed-chunk-12-2.pdf> <./NA_QUASS_exam_files/figure
 -latex/unnamed-chunk-12-3.pdf> <./NA_QUASS_exam_files/figure-latex/unnamed-chun
 k-12-4.pdf>] [18] [19pdfTeX warning (ext4): destination with the same identifie
 r (name{table.7}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.876 
-      pdfTeX warning (ext4): destination with the same identifier (name{table.8
-}) has been already used, duplicate ignored
+l.861 
+      ] [20pdfTeX warning (ext4): destination with the same identifier (name{ta
+ble.8}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.876 
-      ] [20] [21pdfTeX warning (ext4): destination with the same identifier (na
+l.902 
+      ] [21] [22pdfTeX warning (ext4): destination with the same identifier (na
 me{table.9}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
 l.988 
-      ] [22] [23] [24pdfTeX warning (ext4): destination with the same identifie
+      ] [23] [24] [25pdfTeX warning (ext4): destination with the same identifie
 r (name{table.10}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
 l.1127 
        ]
-<NA_QUASS_exam_files/figure-latex/unnamed-chunk-16-1.pdf, id=417, 322.20375pt x
+<NA_QUASS_exam_files/figure-latex/unnamed-chunk-16-1.pdf, id=420, 322.20375pt x
  382.42876pt>
 File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-16-1.pdf Graphic file (typ
 e pdf)
@@ -1086,7 +1088,7 @@ e pdf)
 Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-16-1.pd
 f  used on input line 1165.
 (pdftex.def)             Requested size: 234.8872pt x 278.79137pt.
-<NA_QUASS_exam_files/figure-latex/unnamed-chunk-16-2.pdf, id=418, 332.24126pt x
+<NA_QUASS_exam_files/figure-latex/unnamed-chunk-16-2.pdf, id=421, 332.24126pt x
  386.44376pt>
 File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-16-2.pdf Graphic file (typ
 e pdf)
@@ -1099,344 +1101,343 @@ Overfull \hbox (2.23341pt too wide) in paragraph at lines 1165--1167
 [][] [] 
  []
 
-[25] [26 <./NA_QUASS_exam_files/figure-latex/unnamed-chunk-16-1.pdf> <./NA_QUAS
+[26] [27 <./NA_QUASS_exam_files/figure-latex/unnamed-chunk-16-1.pdf> <./NA_QUAS
 S_exam_files/figure-latex/unnamed-chunk-16-2.pdf>]
 Overfull \hbox (2.54977pt too wide) in paragraph at lines 1236--1263
  [][] 
  []
 
-[27] [28pdfTeX warning (ext4): destination with the same identifier (name{table
+[28] [29pdfTeX warning (ext4): destination with the same identifier (name{table
 .11}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
 l.1283 
-       ] [29] [30] [31] [32] [33] [34] [35]
-<NA_QUASS_exam_files/figure-latex/unnamed-chunk-22-1.pdf, id=534, 471.7625pt x 
+       ] [30] [31] [32] [33] [34] [35] [36]
+<NA_QUASS_exam_files/figure-latex/unnamed-chunk-21-1.pdf, id=537, 471.7625pt x 
 465.74pt>
-File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-22-1.pdf Graphic file (typ
+File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-21-1.pdf Graphic file (typ
 e pdf)
-<use NA_QUASS_exam_files/figure-latex/unnamed-chunk-22-1.pdf>
-Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-22-1.pd
-f  used on input line 1650.
-(pdftex.def)             Requested size: 234.88007pt x 231.8816pt.
-<NA_QUASS_exam_files/figure-latex/unnamed-chunk-22-2.pdf, id=535, 471.7625pt x 
-465.74pt>
-File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-22-2.pdf Graphic file (typ
-e pdf)
-<use NA_QUASS_exam_files/figure-latex/unnamed-chunk-22-2.pdf>
-Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-22-2.pd
-f  used on input line 1651.
-(pdftex.def)             Requested size: 234.88007pt x 231.8816pt.
-<NA_QUASS_exam_files/figure-latex/unnamed-chunk-22-3.pdf, id=536, 471.7625pt x 
-465.74pt>
-File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-22-3.pdf Graphic file (typ
-e pdf)
-<use NA_QUASS_exam_files/figure-latex/unnamed-chunk-22-3.pdf>
-Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-22-3.pd
+<use NA_QUASS_exam_files/figure-latex/unnamed-chunk-21-1.pdf>
+Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-21-1.pd
 f  used on input line 1652.
 (pdftex.def)             Requested size: 234.88007pt x 231.8816pt.
-<NA_QUASS_exam_files/figure-latex/unnamed-chunk-22-4.pdf, id=537, 462.72874pt x
- 465.74pt>
-File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-22-4.pdf Graphic file (typ
+<NA_QUASS_exam_files/figure-latex/unnamed-chunk-21-2.pdf, id=538, 471.7625pt x 
+465.74pt>
+File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-21-2.pdf Graphic file (typ
 e pdf)
-<use NA_QUASS_exam_files/figure-latex/unnamed-chunk-22-4.pdf>
-Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-22-4.pd
+<use NA_QUASS_exam_files/figure-latex/unnamed-chunk-21-2.pdf>
+Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-21-2.pd
 f  used on input line 1653.
-(pdftex.def)             Requested size: 234.88pt x 236.40851pt.
-<NA_QUASS_exam_files/figure-latex/unnamed-chunk-22-5.pdf, id=538, 462.72874pt x
- 465.74pt>
-File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-22-5.pdf Graphic file (typ
+(pdftex.def)             Requested size: 234.88007pt x 231.8816pt.
+<NA_QUASS_exam_files/figure-latex/unnamed-chunk-21-3.pdf, id=539, 471.7625pt x 
+465.74pt>
+File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-21-3.pdf Graphic file (typ
 e pdf)
-<use NA_QUASS_exam_files/figure-latex/unnamed-chunk-22-5.pdf>
-Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-22-5.pd
+<use NA_QUASS_exam_files/figure-latex/unnamed-chunk-21-3.pdf>
+Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-21-3.pd
 f  used on input line 1654.
-(pdftex.def)             Requested size: 234.88pt x 236.40851pt.
-<NA_QUASS_exam_files/figure-latex/unnamed-chunk-22-6.pdf, id=539, 462.72874pt x
+(pdftex.def)             Requested size: 234.88007pt x 231.8816pt.
+<NA_QUASS_exam_files/figure-latex/unnamed-chunk-21-4.pdf, id=540, 462.72874pt x
  465.74pt>
-File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-22-6.pdf Graphic file (typ
+File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-21-4.pdf Graphic file (typ
 e pdf)
-<use NA_QUASS_exam_files/figure-latex/unnamed-chunk-22-6.pdf>
-Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-22-6.pd
+<use NA_QUASS_exam_files/figure-latex/unnamed-chunk-21-4.pdf>
+Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-21-4.pd
 f  used on input line 1655.
 (pdftex.def)             Requested size: 234.88pt x 236.40851pt.
-<NA_QUASS_exam_files/figure-latex/unnamed-chunk-22-7.pdf, id=540, 462.72874pt x
+<NA_QUASS_exam_files/figure-latex/unnamed-chunk-21-5.pdf, id=541, 462.72874pt x
  465.74pt>
-File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-22-7.pdf Graphic file (typ
+File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-21-5.pdf Graphic file (typ
 e pdf)
-<use NA_QUASS_exam_files/figure-latex/unnamed-chunk-22-7.pdf>
-Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-22-7.pd
+<use NA_QUASS_exam_files/figure-latex/unnamed-chunk-21-5.pdf>
+Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-21-5.pd
 f  used on input line 1656.
 (pdftex.def)             Requested size: 234.88pt x 236.40851pt.
-<NA_QUASS_exam_files/figure-latex/unnamed-chunk-22-8.pdf, id=541, 462.72874pt x
+<NA_QUASS_exam_files/figure-latex/unnamed-chunk-21-6.pdf, id=542, 462.72874pt x
  465.74pt>
-File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-22-8.pdf Graphic file (typ
+File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-21-6.pdf Graphic file (typ
 e pdf)
-<use NA_QUASS_exam_files/figure-latex/unnamed-chunk-22-8.pdf>
-Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-22-8.pd
+<use NA_QUASS_exam_files/figure-latex/unnamed-chunk-21-6.pdf>
+Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-21-6.pd
 f  used on input line 1657.
 (pdftex.def)             Requested size: 234.88pt x 236.40851pt.
+<NA_QUASS_exam_files/figure-latex/unnamed-chunk-21-7.pdf, id=543, 462.72874pt x
+ 465.74pt>
+File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-21-7.pdf Graphic file (typ
+e pdf)
+<use NA_QUASS_exam_files/figure-latex/unnamed-chunk-21-7.pdf>
+Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-21-7.pd
+f  used on input line 1658.
+(pdftex.def)             Requested size: 234.88pt x 236.40851pt.
+<NA_QUASS_exam_files/figure-latex/unnamed-chunk-21-8.pdf, id=544, 462.72874pt x
+ 465.74pt>
+File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-21-8.pdf Graphic file (typ
+e pdf)
+<use NA_QUASS_exam_files/figure-latex/unnamed-chunk-21-8.pdf>
+Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-21-8.pd
+f  used on input line 1659.
+(pdftex.def)             Requested size: 234.88pt x 236.40851pt.
 
-Overfull \hbox (2.22733pt too wide) in paragraph at lines 1650--1658
+Overfull \hbox (2.22733pt too wide) in paragraph at lines 1652--1660
 [] []
  []
 
 
-Overfull \hbox (2.22726pt too wide) in paragraph at lines 1650--1658
+Overfull \hbox (2.22726pt too wide) in paragraph at lines 1652--1660
 [] []
  []
 
 
-Overfull \hbox (2.2272pt too wide) in paragraph at lines 1650--1658
+Overfull \hbox (2.2272pt too wide) in paragraph at lines 1652--1660
 [] []
  []
 
 
-Overfull \hbox (2.2272pt too wide) in paragraph at lines 1650--1658
+Overfull \hbox (2.2272pt too wide) in paragraph at lines 1652--1660
 [] [] 
  []
 
-[36 <./NA_QUASS_exam_files/figure-latex/unnamed-chunk-22-1.pdf> <./NA_QUASS_exa
-m_files/figure-latex/unnamed-chunk-22-2.pdf> <./NA_QUASS_exam_files/figure-late
-x/unnamed-chunk-22-3.pdf> <./NA_QUASS_exam_files/figure-latex/unnamed-chunk-22-
-4.pdf>] [37 <./NA_QUASS_exam_files/figure-latex/unnamed-chunk-22-5.pdf> <./NA_Q
-UASS_exam_files/figure-latex/unnamed-chunk-22-6.pdf> <./NA_QUASS_exam_files/fig
-ure-latex/unnamed-chunk-22-7.pdf> <./NA_QUASS_exam_files/figure-latex/unnamed-c
-hunk-22-8.pdf>]
+[37 <./NA_QUASS_exam_files/figure-latex/unnamed-chunk-21-1.pdf> <./NA_QUASS_exa
+m_files/figure-latex/unnamed-chunk-21-2.pdf> <./NA_QUASS_exam_files/figure-late
+x/unnamed-chunk-21-3.pdf> <./NA_QUASS_exam_files/figure-latex/unnamed-chunk-21-
+4.pdf>] [38 <./NA_QUASS_exam_files/figure-latex/unnamed-chunk-21-5.pdf> <./NA_Q
+UASS_exam_files/figure-latex/unnamed-chunk-21-6.pdf> <./NA_QUASS_exam_files/fig
+ure-latex/unnamed-chunk-21-7.pdf> <./NA_QUASS_exam_files/figure-latex/unnamed-c
+hunk-21-8.pdf>]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 1671.
-[38] [39pdfTeX warning (ext4): destination with the same identifier (name{table
+(Font)              <9> on input line 1673.
+[39] [40pdfTeX warning (ext4): destination with the same identifier (name{table
 .12}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.1721 \newpage
+l.1723 \newpage
                ]
-<NA_QUASS_exam_files/figure-latex/unnamed-chunk-24-1.pdf, id=633, 477.785pt x 4
+<NA_QUASS_exam_files/figure-latex/unnamed-chunk-23-1.pdf, id=636, 477.785pt x 4
 77.785pt>
-File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-24-1.pdf Graphic file (typ
+File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-23-1.pdf Graphic file (typ
 e pdf)
-<use NA_QUASS_exam_files/figure-latex/unnamed-chunk-24-1.pdf>
-Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-24-1.pd
-f  used on input line 1733.
+<use NA_QUASS_exam_files/figure-latex/unnamed-chunk-23-1.pdf>
+Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-23-1.pd
+f  used on input line 1732.
 (pdftex.def)             Requested size: 234.8749pt x 234.8749pt.
-<NA_QUASS_exam_files/figure-latex/unnamed-chunk-24-2.pdf, id=634, 477.785pt x 4
+<NA_QUASS_exam_files/figure-latex/unnamed-chunk-23-2.pdf, id=637, 477.785pt x 4
 77.785pt>
-File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-24-2.pdf Graphic file (typ
+File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-23-2.pdf Graphic file (typ
 e pdf)
-<use NA_QUASS_exam_files/figure-latex/unnamed-chunk-24-2.pdf>
-Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-24-2.pd
-f  used on input line 1741.
+<use NA_QUASS_exam_files/figure-latex/unnamed-chunk-23-2.pdf>
+Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-23-2.pd
+f  used on input line 1740.
 (pdftex.def)             Requested size: 234.8749pt x 234.8749pt.
-<NA_QUASS_exam_files/figure-latex/unnamed-chunk-24-3.pdf, id=635, 477.785pt x 4
+<NA_QUASS_exam_files/figure-latex/unnamed-chunk-23-3.pdf, id=638, 477.785pt x 4
 77.785pt>
-File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-24-3.pdf Graphic file (typ
+File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-23-3.pdf Graphic file (typ
 e pdf)
-<use NA_QUASS_exam_files/figure-latex/unnamed-chunk-24-3.pdf>
-Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-24-3.pd
-f  used on input line 1749.
+<use NA_QUASS_exam_files/figure-latex/unnamed-chunk-23-3.pdf>
+Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-23-3.pd
+f  used on input line 1748.
 (pdftex.def)             Requested size: 234.8749pt x 234.8749pt.
-<NA_QUASS_exam_files/figure-latex/unnamed-chunk-24-4.pdf, id=636, 477.785pt x 4
+<NA_QUASS_exam_files/figure-latex/unnamed-chunk-23-4.pdf, id=639, 477.785pt x 4
 77.785pt>
-File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-24-4.pdf Graphic file (typ
+File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-23-4.pdf Graphic file (typ
 e pdf)
-<use NA_QUASS_exam_files/figure-latex/unnamed-chunk-24-4.pdf>
-Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-24-4.pd
-f  used on input line 1757.
+<use NA_QUASS_exam_files/figure-latex/unnamed-chunk-23-4.pdf>
+Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-23-4.pd
+f  used on input line 1756.
 (pdftex.def)             Requested size: 234.8749pt x 234.8749pt.
-[40pdfTeX warning (ext4): destination with the same identifier (name{figure.1})
+[41pdfTeX warning (ext4): destination with the same identifier (name{figure.1})
  has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.1762 \end{figure}
+l.1761 \end{figure}
                    pdfTeX warning (ext4): destination with the same identifier 
 (name{figure.2}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.1762 \end{figure}
-                    <./NA_QUASS_exam_files/figure-latex/unnamed-chunk-24-1.pdf>
- <./NA_QUASS_exam_files/figure-latex/unnamed-chunk-24-2.pdf>]
-<NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-1.pdf, id=664, 476.78125pt x
+l.1761 \end{figure}
+                    <./NA_QUASS_exam_files/figure-latex/unnamed-chunk-23-1.pdf>
+ <./NA_QUASS_exam_files/figure-latex/unnamed-chunk-23-2.pdf>]
+<NA_QUASS_exam_files/figure-latex/unnamed-chunk-24-1.pdf, id=665, 476.78125pt x
  432.61626pt>
-File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-1.pdf Graphic file (typ
+File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-24-1.pdf Graphic file (typ
 e pdf)
-<use NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-1.pdf>
-Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-1.pd
-f  used on input line 1769.
+<use NA_QUASS_exam_files/figure-latex/unnamed-chunk-24-1.pdf>
+Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-24-1.pd
+f  used on input line 1765.
 (pdftex.def)             Requested size: 234.88344pt x 213.12582pt.
-<NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-2.pdf, id=665, 476.78125pt x
+<NA_QUASS_exam_files/figure-latex/unnamed-chunk-24-2.pdf, id=666, 476.78125pt x
  432.61626pt>
-File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-2.pdf Graphic file (typ
+File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-24-2.pdf Graphic file (typ
 e pdf)
-<use NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-2.pdf>
-Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-2.pd
-f  used on input line 1777.
+<use NA_QUASS_exam_files/figure-latex/unnamed-chunk-24-2.pdf>
+Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-24-2.pd
+f  used on input line 1773.
 (pdftex.def)             Requested size: 234.88344pt x 213.12582pt.
-[41pdfTeX warning (ext4): destination with the same identifier (name{figure.3})
+[42pdfTeX warning (ext4): destination with the same identifier (name{figure.3})
  has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.1782 \end{figure}
+l.1778 \end{figure}
                    pdfTeX warning (ext4): destination with the same identifier 
 (name{figure.4}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.1782 \end{figure}
-                    <./NA_QUASS_exam_files/figure-latex/unnamed-chunk-24-3.pdf>
- <./NA_QUASS_exam_files/figure-latex/unnamed-chunk-24-4.pdf>]
-<NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-3.pdf, id=689, 476.78125pt x
+l.1778 \end{figure}
+                    <./NA_QUASS_exam_files/figure-latex/unnamed-chunk-23-3.pdf>
+ <./NA_QUASS_exam_files/figure-latex/unnamed-chunk-23-4.pdf>]
+<NA_QUASS_exam_files/figure-latex/unnamed-chunk-24-3.pdf, id=689, 476.78125pt x
  432.61626pt>
-File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-3.pdf Graphic file (typ
+File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-24-3.pdf Graphic file (typ
 e pdf)
-<use NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-3.pdf>
-Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-3.pd
-f  used on input line 1785.
+<use NA_QUASS_exam_files/figure-latex/unnamed-chunk-24-3.pdf>
+Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-24-3.pd
+f  used on input line 1781.
 (pdftex.def)             Requested size: 234.88344pt x 213.12582pt.
-<NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-4.pdf, id=690, 476.78125pt x
+<NA_QUASS_exam_files/figure-latex/unnamed-chunk-24-4.pdf, id=690, 476.78125pt x
  432.61626pt>
-File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-4.pdf Graphic file (typ
+File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-24-4.pdf Graphic file (typ
 e pdf)
-<use NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-4.pdf>
-Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-4.pd
-f  used on input line 1793.
+<use NA_QUASS_exam_files/figure-latex/unnamed-chunk-24-4.pdf>
+Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-24-4.pd
+f  used on input line 1789.
 (pdftex.def)             Requested size: 234.88344pt x 213.12582pt.
-[42pdfTeX warning (ext4): destination with the same identifier (name{figure.5})
+[43pdfTeX warning (ext4): destination with the same identifier (name{figure.5})
  has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.1798 \end{figure}
+l.1794 \end{figure}
                    pdfTeX warning (ext4): destination with the same identifier 
 (name{figure.6}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.1798 \end{figure}
-                    <./NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-1.pdf>
- <./NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-2.pdf>]
-<NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-5.pdf, id=712, 476.78125pt x
+l.1794 \end{figure}
+                    <./NA_QUASS_exam_files/figure-latex/unnamed-chunk-24-1.pdf>
+ <./NA_QUASS_exam_files/figure-latex/unnamed-chunk-24-2.pdf>]
+<NA_QUASS_exam_files/figure-latex/unnamed-chunk-24-5.pdf, id=712, 476.78125pt x
  481.8pt>
-File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-5.pdf Graphic file (typ
+File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-24-5.pdf Graphic file (typ
 e pdf)
-<use NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-5.pdf>
-Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-5.pd
-f  used on input line 1801.
+<use NA_QUASS_exam_files/figure-latex/unnamed-chunk-24-5.pdf>
+Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-24-5.pd
+f  used on input line 1797.
 (pdftex.def)             Requested size: 234.88344pt x 237.3559pt.
-[43pdfTeX warning (ext4): destination with the same identifier (name{figure.7})
+[44pdfTeX warning (ext4): destination with the same identifier (name{figure.7})
  has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.1807 
+l.1803 
        pdfTeX warning (ext4): destination with the same identifier (name{figure
 .8}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.1807 
-        <./NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-3.pdf> <./NA_QUASS
-_exam_files/figure-latex/unnamed-chunk-25-4.pdf>]
-<NA_QUASS_exam_files/figure-latex/unnamed-chunk-26-1.pdf, id=734, 476.78125pt x
+l.1803 
+        <./NA_QUASS_exam_files/figure-latex/unnamed-chunk-24-3.pdf> <./NA_QUASS
+_exam_files/figure-latex/unnamed-chunk-24-4.pdf>]
+<NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-1.pdf, id=733, 476.78125pt x
  432.61626pt>
-File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-26-1.pdf Graphic file (typ
+File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-1.pdf Graphic file (typ
 e pdf)
-<use NA_QUASS_exam_files/figure-latex/unnamed-chunk-26-1.pdf>
-Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-26-1.pd
-f  used on input line 1813.
+<use NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-1.pdf>
+Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-1.pd
+f  used on input line 1806.
 (pdftex.def)             Requested size: 234.88344pt x 213.12582pt.
-<NA_QUASS_exam_files/figure-latex/unnamed-chunk-26-2.pdf, id=735, 476.78125pt x
+<NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-2.pdf, id=734, 476.78125pt x
  432.61626pt>
-File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-26-2.pdf Graphic file (typ
+File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-2.pdf Graphic file (typ
 e pdf)
-<use NA_QUASS_exam_files/figure-latex/unnamed-chunk-26-2.pdf>
-Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-26-2.pd
-f  used on input line 1821.
+<use NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-2.pdf>
+Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-2.pd
+f  used on input line 1814.
 (pdftex.def)             Requested size: 234.88344pt x 213.12582pt.
-<NA_QUASS_exam_files/figure-latex/unnamed-chunk-26-3.pdf, id=736, 476.78125pt x
+<NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-3.pdf, id=735, 476.78125pt x
  432.61626pt>
-File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-26-3.pdf Graphic file (typ
+File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-3.pdf Graphic file (typ
 e pdf)
-<use NA_QUASS_exam_files/figure-latex/unnamed-chunk-26-3.pdf>
-Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-26-3.pd
-f  used on input line 1829.
+<use NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-3.pdf>
+Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-3.pd
+f  used on input line 1822.
 (pdftex.def)             Requested size: 234.88344pt x 213.12582pt.
-[44pdfTeX warning (ext4): destination with the same identifier (name{figure.9})
+[45pdfTeX warning (ext4): destination with the same identifier (name{figure.9})
  has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.1834 \end{figure}
+l.1827 \end{figure}
                    pdfTeX warning (ext4): destination with the same identifier 
 (name{figure.10}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.1834 \end{figure}
-                    <./NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-5.pdf>
- <./NA_QUASS_exam_files/figure-latex/unnamed-chunk-26-1.pdf>]
-<NA_QUASS_exam_files/figure-latex/unnamed-chunk-26-4.pdf, id=759, 476.78125pt x
+l.1827 \end{figure}
+                    <./NA_QUASS_exam_files/figure-latex/unnamed-chunk-24-5.pdf>
+ <./NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-1.pdf>]
+<NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-4.pdf, id=756, 476.78125pt x
  432.61626pt>
-File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-26-4.pdf Graphic file (typ
+File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-4.pdf Graphic file (typ
 e pdf)
-<use NA_QUASS_exam_files/figure-latex/unnamed-chunk-26-4.pdf>
-Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-26-4.pd
-f  used on input line 1837.
+<use NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-4.pdf>
+Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-4.pd
+f  used on input line 1830.
 (pdftex.def)             Requested size: 234.88344pt x 213.12582pt.
-<NA_QUASS_exam_files/figure-latex/unnamed-chunk-26-5.pdf, id=760, 476.78125pt x
+<NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-5.pdf, id=757, 476.78125pt x
  481.8pt>
-File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-26-5.pdf Graphic file (typ
+File: NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-5.pdf Graphic file (typ
 e pdf)
-<use NA_QUASS_exam_files/figure-latex/unnamed-chunk-26-5.pdf>
-Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-26-5.pd
-f  used on input line 1845.
+<use NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-5.pdf>
+Package pdftex.def Info: NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-5.pd
+f  used on input line 1838.
 (pdftex.def)             Requested size: 234.88344pt x 237.3559pt.
-[45pdfTeX warning (ext4): destination with the same identifier (name{figure.11}
+[46pdfTeX warning (ext4): destination with the same identifier (name{figure.11}
 ) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.1850 \end{figure}
+l.1843 \end{figure}
                    pdfTeX warning (ext4): destination with the same identifier 
 (name{figure.12}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.1850 \end{figure}
-                    <./NA_QUASS_exam_files/figure-latex/unnamed-chunk-26-2.pdf>
- <./NA_QUASS_exam_files/figure-latex/unnamed-chunk-26-3.pdf>] [46pdfTeX warning
+l.1843 \end{figure}
+                    <./NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-2.pdf>
+ <./NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-3.pdf>] [47pdfTeX warning
  (ext4): destination with the same identifier (name{figure.13}) has been alread
 y used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.1852 \newpage
+l.1845 \newpage
                pdfTeX warning (ext4): destination with the same identifier (nam
 e{figure.14}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.1852 \newpage
-                <./NA_QUASS_exam_files/figure-latex/unnamed-chunk-26-4.pdf> <./
-NA_QUASS_exam_files/figure-latex/unnamed-chunk-26-5.pdf>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1860.
-[47]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1860.
+l.1845 \newpage
+                <./NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-4.pdf> <./
+NA_QUASS_exam_files/figure-latex/unnamed-chunk-25-5.pdf>]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1847.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1847.
 (./NA_QUASS_exam.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1860.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 1860.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1847.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 1847.
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 15370 strings out of 492609
- 230447 string characters out of 6129048
- 379237 words of memory out of 5000000
- 18644 multiletter control sequences out of 15000+600000
+ 15354 strings out of 492609
+ 230231 string characters out of 6129048
+ 378996 words of memory out of 5000000
+ 18638 multiletter control sequences out of 15000+600000
  84861 words of font info for 143 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  39i,13n,43p,812b,433s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1477,10 +1478,10 @@ b></usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/lo
 cal/texlive/2019/texmf-dist/fonts/type1/public/lm/lmsy6.pfb></usr/local/texlive
 /2019/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></usr/local/texlive/2019/texmf
 -dist/fonts/type1/public/lm/lmsy9.pfb>
-Output written on NA_QUASS_exam.pdf (47 pages, 1061911 bytes).
+Output written on NA_QUASS_exam.pdf (47 pages, 1060346 bytes).
 PDF statistics:
- 984 PDF objects out of 1000 (max. 8388607)
- 794 compressed objects within 8 object streams
- 169 named destinations out of 1000 (max. 500000)
- 20847 words of extra memory for PDF output out of 24883 (max. 10000000)
+ 969 PDF objects out of 1000 (max. 8388607)
+ 779 compressed objects within 8 object streams
+ 159 named destinations out of 1000 (max. 500000)
+ 20839 words of extra memory for PDF output out of 24883 (max. 10000000)
 

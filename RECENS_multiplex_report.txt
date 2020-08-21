@@ -6,7 +6,7 @@ Filename is RECENS_multiplex_report.txt.
 
 This file contains primary output for SIENA project <<RECENS_multiplex_report>>.
 
-Date and time: 21/08/2020 17:43:05 
+Date and time: 21/08/2020 20:25:57 
 
 RSiena version 1.2-23 (12 01 2020)
 

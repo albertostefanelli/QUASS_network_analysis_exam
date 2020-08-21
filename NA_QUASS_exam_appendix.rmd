@@ -3,7 +3,7 @@
 
 # Appendix
 
-We report some additional descriptive and robustness check. For additional statistics and for the entire R Code used generate this manuscript. Please visit this Github page []
+We report some additional descriptive and robustness check. For additional statistics on the SIENA models and for the entire R Code used generate this manuscript, please visit this [Github page](https://github.com/albertostefanelli/QUASS_network_analysis_exam)
 
 ## In- and Out-Degree distribution 
 
@@ -137,17 +137,17 @@ plot(gof(ergm_4_w2))
 
 \newpage
 
-## SIENA 
+<!-- ## SIENA 
 
 ### Uniplex GOF
 
-```{r,cache=FALSE, echo=FALSE, message=FALSE, warning=FALSE,fig.pos="H",results='hide',fig.align="center"}
+```{r,cache=FALSE, echo=FALSE, message=FALSE, warning=FALSE ,fig.pos="H",fig.align="center"}
 
-plot(gof.fr.indegree)
-plot(gof.fr.outdegree)
-plot(gof.fr.geodesic)
-plot(gof.fr.triadcensus, center = TRUE, scale = TRUE)
+# plot(gof.fr.indegree)
+# plot(gof.fr.outdegree)
+# plot(gof.fr.geodesic)
+# #plot(gof.fr.triadcensus, center = TRUE, scale = TRUE)
 
 ```
 
-
+ -->
