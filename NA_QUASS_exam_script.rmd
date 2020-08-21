@@ -1,0 +1,895 @@
+```{r, include=FALSE, cache=TRUE}
+# read the trust network at t1 and t2
+trust_w1 <- as.matrix(read.csv("3100_trust_w1.csv", 
+    header=TRUE, row.names=1))
+trust_w2 <- as.matrix(read.csv("3100_trust_w2.csv", 
+    header=TRUE, row.names=1))
+
+colnames(trust_w1) <- colnames(trust_w1) %>%
+    gsub("[^\\d]+", "", ., perl=TRUE)
+
+colnames(trust_w2) <- colnames(trust_w2) %>% 
+    gsub("[^\\d]+", "", ., perl=TRUE)
+
+# Remove the class reference for cleaner plots
+colnames(trust_w1) <- gsub("31","",colnames(trust_w1))
+rownames(trust_w1) <- gsub("31","",rownames(trust_w1))
+colnames(trust_w2) <- gsub("31","",colnames(trust_w2))
+rownames(trust_w2) <- gsub("31","",rownames(trust_w2))
+
+# 1 for boys and 2 for girls
+sex <- as.matrix(read.csv("3100_sex.csv",
+                          header=TRUE, row.names=1, sep=","))
+drink <- as.matrix(read.csv("3100_drink.csv",
+                          header=TRUE, row.names=1, sep=","))
+drink_w1 <- drink[,1]
+drink_w2 <- drink[,2]
+
+# read friendship netweork t1 and t2
+affective_w1 <- as.matrix(read.csv("3100_affective_w1.csv",
+                                   header=TRUE, row.names=1, sep=","))
+affective_w2 <- as.matrix(read.csv("3100_affective_w2.csv",
+                                   header=TRUE, row.names=1, sep=","))
+
+friendship_w1 <- affective_w1 
+friendship_w2 <- affective_w2 
+
+# these are the value labels for the affective network:
+#                   -2: enemy, -1: dislike, 0: neutral, 1: like, 2: friend
+
+# recode to friendship at t1
+friendship_w1[friendship_w1 %in% c(-2, -1, 0, 1)] <- 0
+friendship_w1[friendship_w1==2] <- 1
+# # recode to friendship at t2
+friendship_w2[friendship_w2 %in% c(-2, -1, 0, 1)] <- 0
+friendship_w2[friendship_w2==2] <- 1
+
+#Make sure that colnames and rownames correspond
+colnames(friendship_w1) <- colnames(friendship_w1) %>%
+    gsub("[^\\d]+", "", ., perl=TRUE) 
+
+colnames(friendship_w2) <- colnames(friendship_w1) %>% 
+    gsub("[^\\d]+", "", ., perl=TRUE)
+
+# Remove the class reference for cleaner plots
+colnames(friendship_w1) <- gsub("31","",colnames(friendship_w1))
+rownames(friendship_w1) <- gsub("31","",rownames(friendship_w1))
+colnames(friendship_w2) <- gsub("31","",colnames(friendship_w2))
+rownames(friendship_w2) <- gsub("31","",rownames(friendship_w2))
+
+## END DATA PREPARATION
+
+
+## 1. Visual Exploration and descriptives 
+
+
+# IN-DEGREE FOR THE PLOT 
+friendship_in_w1 <- sna::degree(friendship_w1, cmode="indegree")
+friendship_in_w2 <- sna::degree(friendship_w2, cmode="indegree")
+
+friendship_out_w1 <- sna::degree(friendship_w1, cmode="outdegree")
+friendship_out_w2 <- sna::degree(friendship_w2, cmode="outdegree")
+
+g_friend_w1 <- graph.adjacency(friendship_w1)
+g_friend_w2 <- graph.adjacency(friendship_w2)
+g_friend_w1_w2 <- graph.adjacency(friendship_w1 + friendship_w2)
+
+myLayout <- layout.kamada.kawai(g_friend_w1_w2)
+
+density_t1 <- sna::gden(friendship_w1)
+density_t2 <- sna::gden(friendship_w2)
+
+# % change in density 
+1-gden(friendship_w2)/gden(friendship_w1)
+
+## BETWENESS FOR EACH STUDENT
+cbind(seq(1:29),sna::betweenness(friendship_w1, rescale=TRUE)*100)  #Compute betweenness scores
+cbind(seq(1:29),sna::betweenness(friendship_w2, rescale=TRUE)*100)  #Compute betweenness scores
+
+
+### DESCRIPTIVE TABLE 
+
+table_descr <- matrix(NA, 8, 2)
+colnames(table_descr) <- c("Wave 1", "Wave 2")
+rownames(table_descr) <- c("Girls", "Boys", "Drinking - Never", "Drinking - Rarely","Drinking - Occasionally", "Drinking - Regularly", "Drinking - Missing", "Density Friendship")
+table_descr[1,1] <- 14 
+table_descr[1,2] <- 14 
+table_descr[2,1] <- 15 
+table_descr[2,2] <- 15 
+
+table_descr[3,1] <- 10 
+table_descr[4,1] <- 11 
+table_descr[5,1] <- 7 
+table_descr[6,1] <- 0 
+table_descr[7,1] <- 1 
+
+table_descr[3,2] <- 8
+table_descr[4,2] <- 11 
+table_descr[5,2] <- 8 
+table_descr[6,2] <- 0 
+table_descr[7,2] <- 2 
+
+table_descr[8,1] <- density_t1 
+table_descr[8,2] <- density_t2
+
+table_descr_all <- table_descr
+## 2. Local Structures: Dyadic structures 
+
+dyadic_reciprocity_t1 <- sna::grecip(friendship_w1, measure="dyadic.nonnull")
+dyadic_reciprocity_t2 <- sna::grecip(friendship_w2, measure="dyadic.nonnull")
+
+# % change in reciprocity 
+change_reciprocity <- 1-sna::grecip(friendship_w2, measure="dyadic.nonnull")/sna::grecip(friendship_w1, measure="dyadic.nonnull")
+
+## jaccard index 
+#it disregards ties that are absent in both networks
+# and only considers these cases
+
+A <- sum((friendship_w1 * friendship_w2)==1, na.rm=TRUE) # #ties that exist in both networks
+BplusC <- sum((friendship_w1 + friendship_w2)==1, na.rm=TRUE) # #ties that exist in only one network
+(jaccard <- A/(A+BplusC))
+
+dyad_count_w1 <- igraph::dyad.census(g_friend_w1)
+dyad_count_w2 <- igraph::dyad.census(g_friend_w2)
+
+
+table_descr <- matrix(NA, 5, 3)
+colnames(table_descr) <- c("Wave 1", "Wave 2", "Diff (%)")
+rownames(table_descr) <- c("Dyadic Reciprocity",
+  "Jaccard Index",
+  "Dyad Count: Mutual", 
+  "Dyad Count: Asymmetrical",
+  "Dyad Count: Null" )
+
+table_descr[1,1] <- dyadic_reciprocity_t1 
+table_descr[1,2] <- dyadic_reciprocity_t2 
+table_descr[1,3] <- change_reciprocity
+
+table_descr[2,1] <- NA
+table_descr[2,2] <- NA
+table_descr[2,3] <-  jaccard
+
+table_descr[3,1] <- dyad_count_w1$mut
+table_descr[4,1] <- dyad_count_w1$asym
+table_descr[5,1] <- dyad_count_w1$null 
+
+table_descr[3,2] <- dyad_count_w2$mut 
+table_descr[4,2] <- dyad_count_w2$asym 
+table_descr[5,2] <- dyad_count_w2$null
+
+table_descr[3,3] <- 1-(dyad_count_w2$mut/dyad_count_w1$mut)
+table_descr[4,3] <- 1-(dyad_count_w2$asym/dyad_count_w1$asym)
+table_descr[5,3] <- 1-(dyad_count_w2$null/dyad_count_w1$null)
+
+table_descr_2 <- table_descr
+
+# Segregation: Gender and Drinking Assortativity 
+
+graph_t1 <- graph.adjacency(friendship_w1)
+graph_t2 <- graph.adjacency(friendship_w2)
+
+assortativity.nominal(graph_t1, sex)
+assortativity.nominal(graph_t2, sex)
+assortativity.nominal(graph_t1, drink_w1)
+assortativity.nominal(graph_t2, drink_w2)
+
+
+table_descr <- matrix(NA, 2, 3)
+
+colnames(table_descr) <- c("Wave 1", "Wave 2", "Diff (%)")
+rownames(table_descr) <- c("Sex", "Drinking")
+
+table_descr[1,1] <- assortativity.nominal(graph_t1, sex)
+table_descr[1,2] <- assortativity.nominal(graph_t2, sex)
+table_descr[1,3] <- 1-(assortativity.nominal(graph_t2, sex)/assortativity.nominal(graph_t1, sex))
+
+table_descr[2,1] <- assortativity.nominal(graph_t1, drink_w1)
+table_descr[2,2] <- assortativity.nominal(graph_t2, drink_w2)
+table_descr[2,3] <- 1-(assortativity.nominal(graph_t2, drink_w2)/assortativity.nominal(graph_t1, drink_w1))
+
+table_descr_ass <- table_descr
+
+## WAVE 1 
+
+# we concentrate on the first network
+# first, store the four subsets of the network in objects
+gg.1 <- friendship_w1[sex==2, sex==2]
+gb.1 <- friendship_w1[sex==2, sex==1]
+bb.1 <- friendship_w1[sex==1, sex==1]
+bg.1 <- friendship_w1[sex==1, sex==2]
+
+# now create an empty selection table which we can fill in later
+friend.selection <- matrix(NA, 2, 2)
+rownames(friend.selection) <- c("Girl - Wave 1", "Boy - Wave 1")
+colnames(friend.selection) <- c("Girl - Wave 1", "Boy - Wave 1")
+
+
+# fill in the selection table with the subgraph densities
+friend.selection[1,1] <- sna::gden(gg.1, diag=FALSE)
+friend.selection[1,2] <- sna::gden(gb.1, diag=TRUE)
+friend.selection[2,2] <- sna::gden(bb.1, diag=FALSE)
+friend.selection[2,1] <- sna::gden(bg.1, diag=TRUE)
+
+friend.selection_norm_1 <- friend.selection / sna::gden(friendship_w1)
+
+#girl-girl vs. a girl-boy
+OR_gg_vs_gb_t1 <- friend.selection[1,1]/friend.selection[1,2]
+#  boy-boy X boy-girl 
+OR_bb_vs_gb_t1 <- friend.selection[2,2]/friend.selection[2,1]
+
+## WAVE 2 
+
+# we concentrate on the first network
+# first, store the four subsets of the network in objects
+gg.1 <- friendship_w2[sex==2, sex==2]
+gb.1 <- friendship_w2[sex==2, sex==1]
+bb.1 <- friendship_w2[sex==1, sex==1]
+bg.1 <- friendship_w2[sex==1, sex==2]
+# do their dimensions match the number of boys and girls in the network?
+table(sex)
+dim(gg.1)
+dim(gb.1)
+dim(bb.1)
+dim(bg.1)
+
+# now create an empty selection table which we can fill in later
+friend.selection <- matrix(NA, 2, 2)
+rownames(friend.selection) <- c("Girl - Wave 2", "Boy - Wave 2")
+colnames(friend.selection) <- c("Girl - Wave 2", "Boy - Wave 2")
+# it looks like this
+
+# the igraph density function is quite inflexible, let's switch back to sna
+
+# fill in the selection table with the subgraph densities
+friend.selection[1,1] <- sna::gden(gg.1, diag=FALSE)
+friend.selection[1,2] <- sna::gden(gb.1, diag=TRUE)
+friend.selection[2,2] <- sna::gden(bb.1, diag=FALSE)
+friend.selection[2,1] <- sna::gden(bg.1, diag=TRUE)
+
+# normalize by average density
+friend.selection_norm_2 <- friend.selection / sna::gden(friendship_w2)
+
+#girl-girl vs. a girl-boy
+OR_gg_vs_gb_t2 <- friend.selection[1,1]/friend.selection[1,2]
+#  boy-boy X boy-girl 
+OR_bb_vs_gb_t2 <- friend.selection[2,2]/friend.selection[2,1]
+
+
+### DRINKING - WAVE 1 ###
+
+# first, store the four subsets of the network in objects
+dd.1 <- friendship_w1[drink[,1]>1, drink[,1]>1]
+dn.1 <- friendship_w1[drink[,1]>1, drink[,1]==1]
+nn.1 <- friendship_w1[drink[,1]==1, drink[,1]==1]
+nd.1 <- friendship_w1[drink[,1]==1, drink[,1]>1]
+
+# now create an empty selection table which we can fill in later
+drink.selection <- matrix(NA, 2, 2)
+rownames(drink.selection) <- c("Drinker - Wave 1", "Non-drinker - Wave 1")
+colnames(drink.selection) <- c("Drinker - Wave 1", "Non-drinker - Wave 1")
+# it looks like this
+drink.selection 
+
+# the igraph density function is quite inflexible, let's switch back to sna
+
+# fill in the selection table with the subgraph densities
+drink.selection[1,1] <- sna::gden(dd.1, diag=FALSE)
+drink.selection[1,2] <- sna::gden(dn.1, diag=TRUE)
+drink.selection[2,2] <- sna::gden(nn.1, diag=FALSE)
+drink.selection[2,1] <- sna::gden(nd.1, diag=TRUE)
+
+drink.selection_norm_1 <- drink.selection / sna::gden(friendship_w1)
+
+#drinker-drinker vs. drinker-non-drinker a 
+OR_dd_vs_dn_t1 <- drink.selection[1,1]/drink.selection[1,2]
+#  non-drinker-non-drinker X non-drinker-drinker 
+OR_bb_vs_gb_t1 <- drink.selection[2,2]/drink.selection[2,1]
+
+
+## DRINKING - WAVE 2 ##
+
+# we concentrate on the first network
+# first, store the four subsets of the network in objects
+dd.1 <- friendship_w2[drink[,1]>1, drink[,1]>1]
+dn.1 <- friendship_w2[drink[,1]>1, drink[,1]==1]
+nn.1 <- friendship_w2[drink[,1]==1, drink[,1]==1]
+nd.1 <- friendship_w2[drink[,1]==1, drink[,1]>1]
+
+
+# now create an empty selection table which we can fill in later
+drink.selection <- matrix(NA, 2, 2)
+rownames(drink.selection) <- c("Drinker - Wave 2", "Non-Drinker - Wave 2")
+colnames(drink.selection) <- c("Drinker - Wave 2 ", "Non-Drinker - Wave 2")
+
+# the igraph density function is quite inflexible, let's switch back to sna
+
+# fill in the selection table with the subgraph densities
+drink.selection[1,1] <- sna::gden(dd.1, diag=FALSE)
+drink.selection[1,2] <- sna::gden(dn.1, diag=TRUE)
+drink.selection[2,2] <- sna::gden(nn.1, diag=FALSE)
+drink.selection[2,1] <- sna::gden(nd.1, diag=TRUE)
+
+drink.selection_norm_2 <- drink.selection / sna::gden(friendship_w2)
+
+#drinker-drinker vs. drinker-non-drinker 
+OR_dd_vs_dn_t2 <- drink.selection[1,1]/drink.selection[1,2]
+#  non-drinker-non-drinker X non-drinker-drinker 
+OR_bb_vs_gb_t2 <- drink.selection[2,2]/drink.selection[2,1]
+
+## TRIAD CENSUS
+
+## WAVE 1 ##
+
+# size
+net.size_fr1 <- nrow(friendship_w1) 
+# density
+net.dens_fr1 <- sna::gden(friendship_w1)
+# let’s simulate 2000 similar random networks
+random.nets_fr1 <- sna::rgraph(net.size_fr1, 2000, net.dens_fr1)
+
+random.triad_fr1 <- sna::triad.census(random.nets_fr1)
+
+triad.count_fr1 <- sna::triad.census(friendship_w1)
+triad.count_fr2 <- sna::triad.census(friendship_w2)
+
+## WAVE 2 ##
+# size
+net.size_fr2 <- nrow(friendship_w2) 
+# density
+net.dens_fr2 <- sna::gden(friendship_w2)
+# let’s simulate 2000 similar random networks
+random.nets_fr2 <- sna::rgraph(net.size_fr2, 2000, net.dens_fr2)
+random.triad_fr2 <- sna::triad.census(random.nets_fr2)
+
+#### ------------------- ####
+#### COMMUNITY DETECTION ####
+#### ------------------- ####
+
+friendship_w1_undirect <- friendship_w1 %>% graph.adjacency() %>% 
+  as.undirected()
+
+friendship_w2_undirect <- friendship_w2 %>% graph.adjacency() %>% 
+  as.undirected()
+
+## CLIQUES 
+
+cliques_table_1 <- as.data.frame(table(sapply(maximal.cliques(friendship_w1_undirect), length)))
+
+max_cliques_1 <- table(sapply(maximal.cliques(friendship_w1_undirect), length)) %>% 
+  sum() 
+
+cliques_table_2 <- as.data.frame(table(sapply(maximal.cliques(friendship_w2_undirect), length)))
+
+max_cliques_2 <- table(sapply(maximal.cliques(friendship_w2_undirect), length)) %>% 
+  sum() 
+
+
+table_m <- matrix(NA,2,7)
+rownames(table_m) <- c("Wave 1", "Wave 2")
+colnames(table_m) <- c(3:8,"Total")
+
+table_m[1,] <- c(cliques_table_1$Freq,max_cliques_1)
+table_m[2,] <- c(0,0,cliques_table_2$Freq,max_cliques_2)
+
+set.seed(56489)
+
+fast_gready_1 <- fastgreedy.community(friendship_w1_undirect) 
+rand_walk_1 <- walktrap.community(friendship_w1_undirect)
+eigenvector_1 <- leading.eigenvector.community(friendship_w1_undirect) 
+#edge_1 <- edge.betweenness.community(friendship_w1_undirect)
+
+fast_gready_2 <- fastgreedy.community(friendship_w2_undirect) 
+rand_walk_2 <- walktrap.community(friendship_w2_undirect)
+eigenvector_2 <- leading.eigenvector.community(friendship_w2_undirect) 
+
+library("statnet")
+# to make things more simple, we should use objects of class "network"
+friend1 <- network(friendship_w1)
+# you can add vertex/node/actor attributes to a network object by
+# using the %v% operator
+friend1 %v% "sex" <- as.data.frame(sex)
+friend1 %v% "drinking" <- drink[,1]
+
+friend2 <- network(friendship_w2)
+friend2 %v% "sex" <- as.data.frame(sex)
+friend2 %v% "drinking" <- drink[,2]
+
+# Let us begin with the simplest model of interest, a single-parameter model that posits an equal probability for all edges in the network. This model is known in different branches of network science as the Bernoulli model or the Erdös-Rényi model, and it is a natural null model from which to proceed. In the ERG modeling framework, this corresponds to a model with a g(y,X) vector of statistics that contains only a single element, the number of edges in the network.
+# The coefficient estimate tell us that if this network had been generated by the posited model, then the log-odds of a tie should equal −6.998 × δ(g(y,X))ij, which would equal −6.998 for all edges, since the addition of any edge to the network changes g(y,X), the total number of edges in the network, by 1.
+# The log-odds of any tie occurring is:
+ergm_1_w1 <- ergm(friend1~edges)
+ergm_1_w2 <- ergm(friend2~edges)
+
+exp(-0.71812) / (1 + exp(-0.71812))
+
+#The term we use is mutual and it is defined as the number of pairs in the network in which  and  both exist.
+
+ergm_2_w1 <- ergm(friend1~edges+mutual)
+ergm_2_w2 <- ergm(friend2~edges+mutual)
+
+
+# we might guess that there are more
+#triangles than expected by chance for a network of this size and density, and thus
+#that there is some sort of explicit triangle closure effect going on
+## gwesp -- counts the number of third nodes that connect nodes A --> B
+## --> how does the probability of a tie change if it is embedded in X number of triangles
+## p.s. we often take the sqrt() of the number of triangles (decreasing impact of number of embedded triads
+## ==> it is non-linear) -- this is regulated by the 'decay' argument -- if you want decay, set it to
+## a non-negative value
+
+ergm_3_w1 <- ergm(friend1~edges+mutual+gwesp(decay=0, fixed=TRUE))
+ergm_3_w2 <- ergm(friend2~edges+mutual+gwesp(decay=0, fixed=TRUE))
+
+
+# nodematch() whether students have a tendency to nominate friends with whom they share a particular attribute. In this case, there is a high statistically significant probability of nomimating someone of the same sex compared to someone of the opposite sex.
+# nodeicov()  The probability of receiving a friendship tie from another feamle student is around 0.7193 higher than male students.
+# nodeocov()  feamle students nominate slightly less friends -0.5877 than male students
+
+ergm_4_w1 <- ergm(friend1~edges+mutual+gwesp(decay=0, fixed=TRUE) + 
+     nodematch("sex")+
+     nodeicov("sex")+
+     nodeocov("sex") 
+     # nodematch("drinking")
+     )
+
+ergm_4_w2 <- ergm(friend2~edges+mutual+gwesp(decay=0, fixed=TRUE) + 
+     nodematch("sex")+
+     nodeicov("sex")+
+     nodeocov("sex") 
+     # nodematch("drinking")
+     )
+
+#add covariates
+#odeocov() (effect of an attribute on out-degree) 
+#nodeicov() (effect of an attribute on in-degree).
+#istar(2) can be used as a popularity measure 
+
+
+
+ergm_5_w1 <- ergm(friend1~edges+mutual+gwesp(decay=0, fixed=TRUE) + 
+     nodematch("sex")+
+     nodeicov("sex")+
+     nodeocov("sex") + 
+     nodematch("drinking") + 
+     nodeofactor("drinking") +
+     nodeifactor("drinking"),
+     action = na.omit
+     # nodematch("drinking")
+     )
+
+ergm_5_w2 <- ergm(friend2~edges+mutual+gwesp(decay=0, fixed=TRUE) + 
+     nodematch("sex")+
+     nodeicov("sex")+
+     nodeocov("sex") + 
+     nodematch("drinking") + 
+     nodeofactor("drinking") +
+     nodeifactor("drinking"),
+     action = na.omit
+     # nodematch("drinking")
+     )
+
+
+## ANOVA w1 
+
+anova_w1 <- anova(ergm_1_w1,
+  ergm_2_w1,
+  ergm_3_w1,
+  ergm_4_w1,
+  ergm_5_w1)
+
+rownames(anova_w1) <- c("Null", "+ edges", "+ mutual", "+ cluster (gwesp)", "+ gender", "+ drinking")
+
+anova_w1 <- as.matrix(anova_w1)
+anova_w1 <- as.data.frame(anova_w1)
+
+anova_w1$AIC <- unlist(c(NA,lapply(X =list(ergm_1_w1,
+  ergm_2_w1,
+  ergm_3_w1,
+  ergm_4_w1,
+  ergm_5_w1),FUN = AIC)))
+
+anova_w1$BIC <- unlist(c(NA,lapply(X =list(ergm_1_w1,
+  ergm_2_w1,
+  ergm_3_w1,
+  ergm_4_w1,
+  ergm_5_w1),FUN = BIC)))
+
+# Anova w2
+
+anova_w2 <- anova(ergm_1_w2,
+  ergm_2_w2,
+  ergm_3_w2,
+  ergm_4_w2,
+  ergm_5_w2)
+
+rownames(anova_w2) <- c("Null", "+ edges", "+ mutual", "+ cluster (gwesp)", "+ gender", "+ drinking")
+
+anova_w2 <- as.matrix(anova_w2)
+anova_w2 <- as.data.frame(anova_w2)
+
+anova_w2$AIC <- unlist(c(NA,lapply(X =list(ergm_1_w2,
+  ergm_2_w2,
+  ergm_3_w2,
+  ergm_4_w2,
+  ergm_5_w2), FUN = AIC)))
+
+anova_w2$BIC <- unlist(c(NA,lapply(X =list(ergm_1_w2,
+  ergm_2_w2,
+  ergm_3_w2,
+  ergm_4_w2,
+  ergm_5_w2), FUN = BIC)))
+
+# DESC TRUST 
+library(sna)
+
+t_friend_w1 <- graph.adjacency(trust_w1)
+t_friend_w2 <- graph.adjacency(trust_w2)
+t_friend_w1_w2 <- graph.adjacency(trust_w1 + trust_w2)
+myLayout_2 <- layout.kamada.kawai(t_friend_w1_w2)
+
+t_in_w1 <- sna::degree(trust_w1, cmode="indegree")
+t_in_w2 <- sna::degree(trust_w2, cmode="indegree")
+t_out_w1 <- sna::degree(trust_w1, cmode="outdegree")
+t_out_w2 <- sna::degree(trust_w2, cmode="outdegree")
+
+density_t1_t <- sna::gden(trust_w1)
+density_t2_t <- sna::gden(trust_w2)
+1-gden(trust_w2)/gden(trust_w1)
+
+# SIENA UNIPLEX
+
+library(RSiena)
+fr1_SienaEffects <- NA
+nActors <- dim(friendship_w1)[1]
+
+# create dependent network variable
+friend.dependent <- sienaDependent(array(c(friendship_w1, friendship_w2),
+  dim=c(nActors , nActors , 2)))
+
+sex.coCovar <- coCovar(sex[,1])
+
+#also drinking is treated as dependent variable
+drinking <- sienaDependent(drink, type ="behavior")
+
+fr1_SienaData <- sienaDataCreate(friend.dependent,
+  drinking,
+  sex.coCovar)
+
+# print report to check
+print01Report(fr1_SienaData , modelname="friend_network_1")
+
+fr1_SienaEffects <- getEffects(fr1_SienaData)
+
+# network effects
+fr1_SienaEffects <- includeEffects(fr1_SienaEffects , transTrip , cycle3) #transitive triplets , 3cycles
+fr1_SienaEffects <- includeEffects(fr1_SienaEffects , inPop, outPop) #indegree popularity
+# homophily effects and ego alter control
+fr1_SienaEffects <- includeEffects(fr1_SienaEffects, egoX, altX, sameX, 
+  interaction1="sex.coCovar")
+
+# chekc the included effect 
+fr1_SienaEffects
+
+fr1_SienaAlgorithm <- sienaAlgorithmCreate(projname="friend_network_1")
+
+# Estimate the model 
+set.seed(667)
+
+fr1_result <- siena07(fr1_SienaAlgorithm,
+data = fr1_SienaData,
+effects = fr1_SienaEffects,
+returnDeps = T,
+useCluster=TRUE,
+verbose=FALSE,
+batch=TRUE,
+silent=TRUE,
+nbrNodes =2)
+
+## NOT NEEDED. the model converge properly ###
+# fr2_result <- siena07(fr1_SienaAlgorithm,
+# data = fr1_SienaData,
+# effects = fr1_SienaEffects ,
+# returnDeps = T,
+# prevAns=fr1_result,
+# useCluster=TRUE, 
+# verbose=F,
+# nbrNodes =2)
+
+# fr3_result <- siena07(fr1_SienaAlgorithm,
+# data = fr1_SienaData,
+# effects = fr1_SienaEffects ,
+# returnDeps = T,
+# prevAns=fr2_result,
+# useCluster=TRUE, 
+# verbose=F,
+# nbrNodes =2)
+
+fr1_SienaEffects <- includeEffects(fr1_SienaEffects, egoX, altX, simX, 
+  interaction1="drinking")
+
+fr4_result <- siena07(fr1_SienaAlgorithm,
+data = fr1_SienaData,
+effects = fr1_SienaEffects ,
+returnDeps = T,
+prevAns=fr1_result,
+useCluster=TRUE, 
+verbose=FALSE,
+batch=TRUE,
+silent=TRUE,
+nbrNodes =2)
+
+fr1_SienaEffects <- includeEffects(fr1_SienaEffects,
+    name = "drinking",
+    avSim,
+    interaction1 = "friend.dependent")
+
+fr5_result <- siena07(fr1_SienaAlgorithm,
+data = fr1_SienaData,
+effects = fr1_SienaEffects ,
+returnDeps = T,
+prevAns=fr4_result,
+useCluster=TRUE, 
+verbose=FALSE,
+batch=TRUE,
+silent=TRUE,
+nbrNodes =2)
+
+
+fr6_result <- siena07(fr1_SienaAlgorithm,
+data = fr1_SienaData,
+effects = fr1_SienaEffects ,
+returnDeps = T,
+prevAns=fr5_result,
+useCluster=TRUE, 
+verbose=FALSE,
+batch=TRUE,
+silent=TRUE,
+nbrNodes =2)
+
+
+names <- fr4_result$effects$functionName
+names_short <- fr4_result$effects$effectName
+coef <- fr4_result$theta
+se   <- sqrt(diag(fr4_result$covtheta)) # also fr3_result$se
+t_conv <- fr4_result$tconv
+t_ratio <- coef/se
+signficant <- ifelse(abs(t_ratio)>2,"YES","NO")
+
+
+simpleCap <- function(x) {
+  s <- strsplit(x, " ")[[1]]
+  paste(toupper(substring(s, 1,1)), substring(s, 2),
+      sep="", collapse=" ")
+}
+
+siena_uniplex_results <- cbind(names,names_short,coef,se,t_ratio,signficant,t_conv)
+siena_uniplex_results <- as.data.frame(siena_uniplex_results)
+siena_uniplex_results$names_final <- as.character(siena_uniplex_results$names)
+siena_uniplex_results$names_final[6:16] <- array(unlist(sapply(as.character(siena_uniplex_results$names_short),simpleCap)))[(6:16)]
+
+siena_uniplex_results %>% select(names_final, coef,se,t_ratio,t_conv) -> selected_table_uniplex
+
+names(selected_table_uniplex) <- c("Effects", "Estimate", "Standard Error","t-value","Convergence t-ratio")
+
+
+selected_table_uniplex <- selected_table_uniplex %>% mutate_at(vars(2,3,4,5), list(as.character)) %>%
+    mutate_at(vars(2,3,4,5), list(as.numeric)) %>%
+    mutate_at(vars(2,3,4,5), round, 2)
+
+## SIENA MULTIPLEX ##
+set.seed(47)
+# the first dependent network - friendship
+friendship.dependent1 <- sienaDependent(array(c(friendship_w1, friendship_w2), dim=c(nActors, nActors, 2))
+)
+# the second dependent network - trust
+trust.dependent2 <- sienaDependent(array(c(trust_w1, trust_w2), dim=c(nActors, nActors, 2))) # constant covariate - gender
+gender.coCovar <- coCovar(sex[,1])
+# create siena data object
+sienaData <- sienaDataCreate(friendship.dependent1 ,
+trust.dependent2 , gender.coCovar)
+# print initial report to file
+print01Report(sienaData , modelname="RECENS_multiplex_report")
+sienaEffects <- getEffects(sienaData)
+
+sienaAlgorithm <- sienaAlgorithmCreate(projname="RECENS_3100_multiplex_algo")
+
+frienship_trust_result_1 <- siena07(sienaAlgorithm,
+  data = sienaData ,
+  effects = sienaEffects,
+  returnDeps = T,
+  useCluster=TRUE, 
+  verbose=FALSE,
+  batch=TRUE,
+  silent=TRUE,
+  nbrNodes =2)
+
+# first it makes sense to include effects for the two networks separately
+sienaEffects <- includeEffects(sienaEffects , name="friendship.dependent1", transTrip, inPop, outPop)
+sienaEffects <- includeEffects(sienaEffects , name="trust.dependent2", transTrip, inPop, outPop)
+
+frienship_trust_result_2 <- siena07(sienaAlgorithm,
+  data = sienaData ,
+  effects = sienaEffects,
+  returnDeps = T,
+  prevAns=frienship_trust_result_1,
+  useCluster=TRUE, 
+  verbose=FALSE,
+  batch=TRUE,
+  silent=TRUE,
+  nbrNodes =2)
+
+
+sienaEffects <- includeEffects(sienaEffects,
+  name="friendship.dependent1",
+  egoX, altX, sameX, 
+  include=T,
+  interaction1="gender.coCovar")
+
+sienaEffects <- includeEffects(sienaEffects,
+  name="trust.dependent2",
+  egoX, altX, sameX,
+  include=T,
+  interaction1="gender.coCovar")
+
+
+frienship_trust_result_3 <- siena07(sienaAlgorithm,
+  data = sienaData ,
+  effects = sienaEffects,
+  returnDeps = T,
+  prevAns=frienship_trust_result_2,
+  useCluster=TRUE, 
+  verbose=FALSE,
+  batch=TRUE,
+  silent=TRUE,
+  nbrNodes =2)
+
+
+frienship_trust_result_4 <- siena07(sienaAlgorithm,
+  data = sienaData ,
+  effects = sienaEffects,
+  returnDeps = T,
+  prevAns=frienship_trust_result_3,
+  useCluster=TRUE, 
+  verbose=FALSE,
+  batch=TRUE,
+  silent=TRUE,
+  nbrNodes =2)
+
+
+# then add the basic dyadic cross-production effect
+
+# sienaEffects <- includeEffects(sienaEffects,
+#   name="friendship.dependent1",
+#   crprod,
+#   interaction1="trust.dependent2") 
+
+## FRIENDSHIP ON TRUST
+sienaEffects <- includeEffects(sienaEffects,
+  name="trust.dependent2",
+  crprod,
+  interaction1="friendship.dependent1")
+
+
+frienship_trust_result_5 <- siena07(sienaAlgorithm,
+  data = sienaData ,
+  effects = sienaEffects,
+  returnDeps = T,
+  prevAns=frienship_trust_result_4,
+  useCluster=TRUE, 
+  verbose=FALSE,
+  batch=TRUE,
+  silent=TRUE,
+  nbrNodes =2)
+
+
+sienaEffects <- includeEffects(sienaEffects,
+  name="trust.dependent2",
+  crprodRecip,
+  include=T,
+  interaction1="friendship.dependent1")
+
+frienship_trust_result_6 <- siena07(sienaAlgorithm,
+  data = sienaData ,
+  effects = sienaEffects,
+  returnDeps = T,
+  prevAns=frienship_trust_result_5,
+  useCluster=TRUE, 
+  verbose=FALSE,
+  batch=TRUE,
+  silent=TRUE,
+  nbrNodes =2)
+
+sienaEffects <- includeEffects(sienaEffects,
+  name="trust.dependent2",
+  crprodMutual,
+  include=TRUE,
+  interaction1="friendship.dependent1")
+
+
+frienship_trust_result_7 <- siena07(sienaAlgorithm,
+  data = sienaData ,
+  effects = sienaEffects,
+  returnDeps = T,
+  prevAns=frienship_trust_result_6,
+  useCluster=TRUE, 
+  verbose=FALSE,
+  batch=TRUE,
+  silent=TRUE,
+  nbrNodes =2)
+
+
+
+names <- frienship_trust_result_7$effects$functionName
+names_short <- frienship_trust_result_7$effects$effectName
+coef <- frienship_trust_result_7$theta
+se   <- sqrt(diag(frienship_trust_result_7$covtheta)) # also fr3_result$se
+t_conv <- frienship_trust_result_7$tconv
+t_ratio <- coef/se
+signficant <- ifelse(abs(t_ratio)>2,"YES","NO")
+
+siena_multiplex_results <- cbind(names,names_short,coef,se,t_ratio,signficant,t_conv)
+
+
+siena_multiplex_results <- as.data.frame(siena_multiplex_results)
+siena_multiplex_results$names_final <- as.character(siena_multiplex_results$names)
+siena_multiplex_results$names_final[6:16] <- array(unlist(sapply(as.character(siena_multiplex_results$names_short),simpleCap)))[(6:16)]
+
+siena_multiplex_results %>% select(names_final, coef,se,t_ratio,t_conv) -> siena_multiplex_results
+
+names(siena_multiplex_results) <- c("Effects", "Estimate", "Standard Error", "t-value", "Convergence t-ratio")
+
+
+siena_multiplex_results <- siena_multiplex_results %>% mutate_at(vars(2,3,4,5), list(as.character)) %>%
+    mutate_at(vars(2,3,4,5), list(as.numeric)) %>%
+    mutate_at(vars(2,3,4,5), round,2)
+
+siena_multiplex_results$Effects <- sub("friendship.dependent1", "Friendship", siena_multiplex_results$Effects)
+
+siena_multiplex_results$Effects <- sub("Friendship.dependent1", "Friendship", siena_multiplex_results$Effects)
+
+siena_multiplex_results$Effects <- sub("trust.dependent2", "Trust", siena_multiplex_results$Effects)
+
+siena_multiplex_results$Effects <- sub("Trust.dependent2", "Trust", siena_multiplex_results$Effects)
+
+
+
+
+```
+
+
+```{r, include=FALSE, cache=TRUE}
+
+# copied from the script on the RSiena website
+GeodesicDistribution <- function (i, data , sims , period , groupName ,
+varName, levls=c(1:5,Inf), cumulative=TRUE, ...) {
+
+x <- networkExtraction(i, data, sims, period, groupName, varName)
+require(sna)
+a <- sna::geodist(x)$gdist
+if (cumulative) {
+gdi <- sapply(levls , function(i){ sum(a<=i) }) }
+else
+{
+gdi <- sapply(levls , function(i){ sum(a==i) }) }
+names(gdi) <- as.character(levls)
+gdi
+}
+
+
+# copied from Siena website GOF example script
+TriadCensus <- function(i, data, sims, wave, groupName, varName, levls=1:16){
+require(sna)
+require(network)
+x <- RSiena::networkExtraction(i, data, sims, wave, groupName, varName)
+tc <- sna::triad.census(x)[1,levls]
+# triad names are transferred automatically
+tc
+}
+
+gof.fr.indegree <- sienaGOF(fr4_result , IndegreeDistribution , varName = "friend.dependent", verbose = TRUE)
+gof.fr.outdegree <- sienaGOF(fr4_result , OutdegreeDistribution , varName = "friend.dependent", verbose = FALSE)
+gof.fr.geodesic <- sienaGOF(fr4_result , GeodesicDistribution , varName = "friend.dependent", verbose = FALSE)
+gof.fr.triadcensus <- sienaGOF(fr4_result , TriadCensus , varName = "friend.dependent",
+verbose = TRUE)
+
+```

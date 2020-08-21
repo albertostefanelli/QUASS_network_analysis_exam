@@ -1,0 +1,749 @@
+---
+title: Network Analysis Exam (QUASS) 
+author: Alberto Stefanelli^[[Alberto Stefanelli](https://albertostefanelli.com/) is a PhD Candidate at the Institute for Social and Political Opinion Research (ISPO), KU Leuven. His research interests are related to voting behaviour, radical belief systems, and conspiracy theory. Methods wise, he is interested on graphical causal models, experimental and semi-experimental design, and big data. Email:alberto.stefanelli.main@gmail.com]
+bibliography: /Users/serg/gdrive/academia/library.bib
+link-citations: true
+urlcolor: blue
+abstract: 
+output: 
+    pdf_document:
+      number_sections: true
+      toc: true
+      fig_caption: yes
+      fig_width: 7
+      fig_height: 7
+      keep_tex: no
+  # word_document:
+  #   toc: true
+  #   fig_caption: true
+
+header-includes:
+  - \usepackage{fancyhdr}
+  - \usepackage{longtable}
+  - \usepackage{booktabs}
+  - \usepackage{dcolumn}
+  - \fancyhf{}
+  - \fancyhead[RO]{Network Analysis Exam (QASS)}
+  - \fancyhead[RE]{Alberto Stefanelli}
+  - \fancyfoot[C]{\thepage}
+  - \pagestyle{fancy}
+  - \usepackage{setspace}\doublespacing
+  - \renewcommand{\headrulewidth}{0.4pt}
+  - \renewcommand{\footrulewidth}{0pt}
+  - \usepackage{float}
+  - \floatplacement{figure}{H}
+  - \DeclareUnicodeCharacter{FB01}{fi}
+  - \usepackage{lscape}
+  - \newcommand{\blandscape}{\begin{landscape}}
+  - \newcommand{\elandscape}{\end{landscape}}
+  - \usepackage{rotating, graphicx}
+  - \usepackage{dcolumn}
+### BLUE LINK 
+### GRAMMAR CECK
+### FIGURE TOC
+### APPENDIX AFTER BIB 
+
+---
+
+\newpage 
+\newpage 
+\tableofcontents
+<!-- \UseRawInputEncoding -->
+<!-- \listoffigures -->
+ \listoftables
+\newpage
+
+
+```{r,include=FALSE,cache=FALSE}
+
+library(knitr)
+library(kableExtra)
+rm(list=ls(all=TRUE))
+knitr::opts_chunk$set(fig.pos = 'H')
+options(Encoding="UTF-8")
+library(devtools)
+# install and load defined list of packages
+ipak <- function(pkg){
+  new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
+  if (length(new.pkg)) 
+    install.packages(new.pkg, dependencies = TRUE,repos = "http://cran.us.r-project.org")
+  sapply(pkg, require, character.only = TRUE)
+}
+
+list_of_required_pkg <- c(
+#"qualtRics",
+"dplyr",
+"igraph",
+"ggplot2",
+"vioplot", 
+"RSierna", 
+"sna",
+"stargazer",
+"statnet"
+#"urlshorteneR"
+  
+)
+
+ipak(list_of_required_pkg)
+
+##### -------------- ##### 
+        
+```
+
+```{r, child = "NA_QUASS_exam_script.rmd"}
+```
+
+# Introduction 
+
+Individuals are influenced by the presence of social interactions between their peers, colleges, friends and the myriad of other agents who loosely interact within their social environment. The continue and repeated interactions between individuals lead to the creation of connections that -- over time -- result in the formation of more or less cohesive social structures. We can refer to these complex structures as networks. In the most simple terms, a network is defined as a set of relations between a series of entities [@robins_doing_2015, ch. 1]. Despite, Network Analysis is not limited to individuals, for political and social sciences the network entities of interests are often people. Typically, the main goal of studying individuals using a network analytic approach is to understand how individuals interact and influence each other.  
+
+One of the fundamental theoretical insights that originate from Network Analysis is that individual outcomes are affected by the structure of relations among the agent of the network. For instance, the way an individual casts a vote might depend on what her close friends have voted for in the past elections. This simple example underlines two important characteristics of Social Networks Analysis (SNA). First, it means that the agents of a network can (self-)organize into certain patterns. In my previous example, people who voted for a certain party might be more likely to group together since they share the same political affiliation and values. Second, it implies that the content of relationships and individual interactions that create and maintain a network are partially determined by the structure of the network itself. That is, if all my close friends have voted for a certain party, I might be induced to change my political orientation to match one of my closest friends. This means that SNA is well suited to study both micro- and macro-level phenomena, that is, to jointly study the outcomes for the system as a whole against one of a specific actor or sub-groups of actors. 
+
+In this study, I will employ SNA to study the structure of friendship relationships of high-school students over two different time points. Specifically, I will focus on friendship and trust bonds among students using both static and dynamic approaches. The rest of this report proceeds as follows. First, I will detail the data, the instruments, and the methods that I will use in the manuscript. Second -- building on the relevant literature of the field -- I will posit some hypothesis that will guide my empirical analysis. Third, I will describe the classroom network using a bottom-up approach that will gradually shift from the smallest possible elements (dyads) to more complex network structures. Fourth, I will use Exponential random graph models (ERGMs) to explore both structural characteristics of the networks and the individual characteristics of the students. Lastly, I will use the Stochastic Actor Oriented Models (SAOM) that employs the Simulation Investigation for Empirical Network Analysis (SIENA) algorithm to study the dynamic aspects of the network. This last part will also see the use of the trust network in conjunction with the friendship network to have a deeper understanding of the existing network dynamics.
+
+# Data, Instruments, and Methods 
+
+## Data
+
+I will employ the data provided by Research Center for Educational and Network Studies (RECENS), a research group that belongs to the Centre for Social Sciences of the Hungarian Academy of Sciences (MTA). The data consist of 29 students belonging to the same class of whom we possess information at two different time points. For each one of the students, we know the gender (sex), the propensity to drink (drink), and the connections between each other in terms of friendship (friendship) and trust (trust). While sex remains constant through time, the remaining variables are measured in two different waves, hence having different values over time. 
+
+## Instruments 
+
+The friendship and trust data represent the relationship between the different students in the class-room and are organized in two square matrices. The connection of a student with each of the other students in the class is expressed by the combination of row and column values. Students are not allowed to express friendship or trust with themselves, excluding the possibility of network loops and making the matrix diagonal filled with missing values. The friendship matrix is composed of integers ranging from -2 to 2 indicating the strength of a student bond towards another student in the network. I consider the presence of friendship bond if a student indicates the strongest relationships towards another student. I recoded all the other type of relationship as non-friendship. The trust data is already binary, indicating whether a student trusts another one or not. The propensity to drink (drink) and the gender of the students (sex) are expressed in integer vectors, one for each wave. Drinking value range from never (1) to regularly (4). Gender is coded as 1 for boys and 2 for girls. To sum up, our class-room network can be defined as one mode, directed, binary, and without loops.
+
+## Methods 
+
+The analytical approach will take advantage of different analytical tools that are commonly employed in SNA. First, I will focus on a generic description of the network using network visualization and a series of network descriptive statistics such as network density, dyadic reciprocity, in- and out-degree. Second, to better grasp how the network is organized and how students cluster together, I will employ and compare a series of community detection algorithms.  Third, I will move to statistical modelling. Specifically, I will employ Exponential random graph models (ERGMs) for the static components of the network and Simulation Investigation for Empirical Network Analysis (SIENA) for the dynamic components. Given their more complex nature, I will briefly introduce the reader to the main characteristics and advantages of ERGMs and SIENA models before interpreting the empirical results. 
+
+The study has been carried out with the R statistical suite [@r_core_team_r_2019]. Visualization and network description have been carried out with the sna [@butts_sna_2019] and igraph [@details_igraph_2020] R packages. ERGMs models are fitted using statnet [@handcock_statnet_2019], while SIENA models are fitted using the RSiena package. [@ripley_rsiena_2020]
+
+# Hypothesis 
+
+The main focus of this report is to showcase the potential application of SNA using friendship and trust ties in a high-class network. Specifically, the main goal is to find similarities and dissimilarities across the network at time T - 1 and T. I will refer to wave 1 for the network at time T-1 and as wave 2 to for the network at time T. Few simple hypotheses drawn from relevant literature on the topic are used to guide my empirical investigation. 
+
+First, although I expect a great degree of similarities between two networks waves, I hypothesise the class-room network in the first wave to be less dense and connected compared to the network in the second wave. This expectation is based on the assumption that thought time students will develop more cohesion, trust, and social capital between themselves [@rossem_social_2015]. 
+
+**H.1**: The first wave of the class-room network will be less dense and connected compared to the second wave^[To be sure, we lack any information when the data have been collected and if any event that could have influenced class dynamics (e.g., a new teacher) occurred between the two waves.]. 
+
+Second, we expect a certain degree of gender and drinking homophily in the network in both waves. This goes accordingly to the homophily theory stating that ties are more likely to occur when actors share similar attributes and characteristics [@mcpherson_birds_2001]. This has proven to be the case particularly with social bonds such as friendships [@mcmillan_peer_2018; @knox_using_2019]. 
+
+**H.2.A**: A pair of individuals of the same gender will be more likely to create friendship compared to individuals from the opposite gender. 
+
+**H.2.B**: A pair of individuals who share the same propensity to drink alcohol will be more likely to create friendship bonds compared to individuals that engage in different drinking behaviour.  
+
+Last, I expect that a friendship bond between two students influences how they trust each other, and vice-versa. This expectation is related to the assumption that friendship leads to positive interactions between adolescents who strive to maintain positive bonds by establishing strong social connections based on trust principles [@bilecen_friendship_2014]. At the same time, we expect that once an individual has established a trust with another agent, such individual will try to reduce social distance and transform acquaintance into friendship bonds [@zhang_effect_2017].
+
+**H.3.A**: Trustworthiness is more likely to develop if a friendship bond is established. 
+
+**H.3.B**: Friendship is more likely to exist if a trust tie is established between two individuals.
+
+
+# Analysis 
+
+## Visual Exploration and descriptives 
+
+The first step of my analysis starts with the visualization of the friendship and trust networks (figures 1 and 2 respectively). 
+
+
+```{r, fig.show="hold", out.width="50%", echo=FALSE, message=FALSE, warning=FALSE}
+
+plot(g_friend_w1,
+vertex.color = ifelse(drink_w1 == 1, "#fa8072",
+ifelse(drink_w1 == 2, "#cd5c5c", 
+  ifelse(drink_w1 == 3, "#dc143c",
+    ifelse(drink_w1 == 4, "#ff0000", "black")))), 
+
+vertex.shape = ifelse(sex == 1, "square", "circle"),
+vertex.size = friendship_in_w1*1.5, 
+edge.color = "black",
+edge.width = 1,
+edge.arrow.size = 0.40,
+vertex.size = 10,
+layout = myLayout ,
+main = "Friendship Network - wave 1", 
+label = names ,
+label.dist = 1, 
+label.cex = 1,
+vertex.label.color= "grey28", 
+label.font = 4)
+
+plot(g_friend_w2,
+vertex.color = ifelse(drink_w2 == 1, "#fa8072",
+ifelse(drink_w2 == 2, "#cd5c5c", 
+  ifelse(drink_w2 == 3, "#dc143c",
+    ifelse(drink_w2 == 4, "#ff0000", "black")))), 
+
+vertex.shape = ifelse(sex == 1, "square", "circle"), 
+vertex.size = friendship_in_w2*1.5,
+edge.color = "black",
+edge.width = 1, 
+edge.arrow.size = 0.40,
+vertex.size = 10,
+layout = myLayout ,
+main = "Friendship Network - wave 2",
+label = names , 
+label.dist = 1,
+label.cex = 1, 
+vertex.label.color= "grey28",
+label.font = 4)
+
+
+        
+```
+
+
+The information plotted on the graph -- together with some network descriptives -- allow the reader to appreciate some patters and characteristics of the networks that will be expanded later on in the manuscript. In this section, we are going to look only at the friendship network since it is the main focus of the next sections. We will explore the trust network only at the end of the manuscript when it will be used in conjunction with the friendship network in multiplex SIENA models. 
+
+I start looking at the density of the graph that can be interpreted how cohesive and tightly connected are the nodes of the network. A quick visual examination reveals that the second wave seems to have fewer connections compared to the first one meaning that some friendship relationships have been lost or have degenerated between the two waves. This is confirmed by a quantitative measure of density calculated by summing all the existing ties in a given network divided by the total possible ties. Despite the decrease remains modest, the class-room density shows a decline of approximately 14 percentage points between wave 1 (0.33) and wave 2 (0.28).
+
+Next, we look at the in-degree measure for each student represented by the node size. This measure tells us the number of ties that a student receives from the other students in the classroom. It can be interpreted as a measure of actor centrality. The bigger the node, the more a student is popular (or trusted). We note a significant difference in actor centrality. Certain students have sensibly higher in-degree meaning that they are more popular than others. Overall, those students that are popular in the first wave remains popular in the second wave signalling their ability to maintain network connections. However, the graph reveals that some students have lost some of their friends and thus have become becoming more isolated (05, 09, 16, 19, 22, 25). This visual pattern is confirmed by the change in the out- and in-degree distribution (see Appendix). Both distributions have become more left-skewed, indicating that -- on average -- students have nominated fewer friends in the second wave. 
+
+
+Third -- although the class is very balanced in term of gender ratio -- the network visualization suggests that some form of gender segregation might be happing in the class. Boys are represented by squares and are clustered at the top (left) of the network while the girls are plotted using circles and are clustered at the bottom of the graph. Despite this clustering dynamic, it is worth noting that boys and girls do not form two separate closed groups. In fact, the two parts of the graph show several connections between each other. Specifically, some girls (13, 14, 19, 22, 25) and some boys (05, 14, 02, 29) seems to be pretty popular across both sexes. We do not note any significant difference between the two waves suggesting that gender segmentation has remained quite stable. However, looking at normalized betweenness centrality scores of each student -- a measure that can be thought of as how each node function as a "bridge" between the different actors of the network -- we note that the male student 02 have become much more central among both sexes in wave 2 passing from having a betweens score of 3 to 24 per cent.  
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, out.width="50%"}
+
+kable(table_descr_all, booktabs = TRUE,   linesep = "", # necessary for avoiding line break 
+  caption = "Descriptive Statistics for the Friendship Network", 
+  align = "l",format = "latex",digits=2)
+
+```
+Fourth, the network shows a relatively low segmentation in regard to drinking habits. About 75% of the students tend not to drink or drink only occasionally and none of the surveyed students reported to drink regularly. We note a small group of students that are clustered together on the left side of the network (03, 05, 25). They are all male students and have reported drinking quite regularly. However, drinking clustering appears far less strong compared to gender. It is worth noting that, one student in wave 1 and two students in wave 2 did not answer the drinking questions. This might be related to social desirability bias associated with stigmatized questions such as alcohol abuse or underage drinking. 
+
+## Local Structures: Dyadic structures 
+
+In the previous section, we gained some insight on some of the general characteristics of the network and we have seen how the network is changing between wave 1 and wave 2 looking at how the degree and betweenness of some of the students changed between the two waves. In this section, we are going to take a look at dyadic relationships between students to better understand how the student relationships are changing between the two waves. This level of analysis is sometimes called “local”, that is, we look at the sub-graphs embedded within the entire graph. 
+
+We start with the basic unit for the statistical analysis of social networks, a dyad. A dyad can be defined as a sub-graphs (or a group) of size 2 consisting of a pair of actors and their ties. One of the most common indicators of dyad relationships is reciprocity. It indicates the proportion of symmetric dyads, that is, the ratio of mutual friends in the network. It gives us an idea of how strong is the tendency for a student to befriend with another if the second student "reciprocate" the friendship. We note a decrease of approximately 25 per cent between wave 1 and wave 2 with a dyadic reciprocity of 40 and 30 per cent, respectively. This means that when somebody nominates a student as a friend, they get nominated back about 40 per cent of the times in wave 1 and only 30 per cent in wave 2. This might indicate a decrease of symmetrical friendship interactions between the students across the two waves. 
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, out.width="50%",}
+
+kable(table_descr_2, booktabs = TRUE,   linesep = "", # necessary for avoiding line break 
+  caption = "Local Structures and Network evolution", 
+  align = "l",format = "latex",digits=2)
+
+```
+
+The decrease in reciprocity (and density) between the two waves suggests that the friendship network is rapidly evolving. To better gauge to extent of such change, we resort to the Jaccard distance. The Jaccard index is calculated taking into account the changes in the ties that exist in both waves and those existing only in one wave. The Jaccard index reveals that only 47% of the existing ties remained the same across the two waves. In other words, 53% of the students who were friends have lost their connection or have established new friendship bonds in wave 2. Given the lower density in the second wave, this pattern is likely to be related to the fact that some students have become more isolated across the two waves. This interpretation is confirmed by looking at the dyads ties statuses. Mutual ties passed from being 72 in the first wave to 48 while null ties have increased from 221 to 238. 
+
+## Segregation: Gender and Drinking  
+
+Next, we turn our attention to the assortativity of the network. Assortativity gives us an indication of how students establish friendship bonds. Positive values indicate a preference for actors with similar attributes while negative values indicate a preference for actors with different attributes. Overall, we note that gender plays a substantial role when students choose friends while drinking has a relatively small impact. An interesting finding is how assortativity coefficients are different for sex and drinking. While gender assortativity passes from 43 per cent in wave 1 to 34 per cent in wave 2, we observe an opposite pattern in drinking that passes from a mere negative 4 per cent in wave 1 to a negative 10 per cent in wave 2. Although the change in drinking assortativity reveals that students might have a slighter higher preference for individuals with different drinking habit in wave 2, the fact that most of the students never drink or drink only occasionally downplays the relevance of this finding. 
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, out.width="50%",}
+
+kable(table_descr_ass,
+  booktabs = TRUE,
+  linesep = "", # necessary for avoiding line break 
+  caption = "Assortativity", 
+  align = "l",format = "latex", digits=2) %>% 
+  kable_styling(latex_options = c("HOLD_position"))
+
+```
+
+To better grasp friendship preferences and assess if the student network display gender and drinking segregation, we turn to homophily measures by calculating the sub-graphs density based on gender and drinking habit normalized by the overall network density. To make the interpretation of our results more informative, I collapsed drinking into two categories where 0 indicates non-drinkers and 1 indicates drinkers.
+
+Overall, students tend to display sex segregation. The effect of gender is quite pronounced indicating that gender plays a substantial role in bonding and friendship dynamics. However, we note a decrease in sub-graph density between the two waves. In term of Odd Ratios (OR), a Girl-Girl tie versus a Girl-Boy tie passes from 9.37 in wave 1 to 6.92 in wave 2. This indicates that gender segregation has decreased between the two waves. In practical terms, this means that girls tend to choose girls as friends less in wave 2 and that mixed-gender relationships have become more common. On the contrary, drinking segregation seems to be rather stable between the two waves. Drinkers have a slight preference for friends who drink (and vice-versa) across both waves^[It is worth noting that both the sub-graph density and the preference in term of OR between Drinker - Drinker VS Drinker - Non Drinker is rather small. Fitting a log-linear model to the data would most likely suggest that this relationship is not significant. Additional tests on drinking segregation are presented in the section below when we discuss ERGMs and SIENA models].
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, out.width="50%",}
+
+kable(list(friend.selection_norm_1,friend.selection_norm_2),
+  booktabs = TRUE,
+  linesep = "", # necessary for avoiding line break 
+  caption = "Normalized Sub-graphs Density for Sex", 
+  align = "l",format = "latex", digits=2) 
+
+kable(list(drink.selection_norm_1,drink.selection_norm_2),
+  booktabs = TRUE,
+  linesep = "", # necessary for avoiding line break 
+  caption = "Normalized Sub-graphs Density for Drinking", 
+  align = "l",format = "latex", digits=2) 
+
+```
+
+## Local Structures: Triadic structures 
+
+In this section, our focus shift from dyads to triads. The relevance of triads stems from Heider's balance theory [@heider_attitudes_1946]. In a nutshell, balance theory posits that individuals strive for cognitive consistency and thus maximise bonding structures that allow them to maintain their values and beliefs. In regard to friendship network, scholars have underlined how friendships tend to be overwhelmingly transitive, that is, individuals tend to establish friendly relationships with the friends of their friends (and vice-versa) [@holland_transitivity_2016]. 
+
+In a directed network such as the one under scrutiny, a triad can be composed in 16 possible ways. To better understand if the triadic configurations across the two waves present unusual configuration, we plot the triads counts and we perform a series of Conditional Uniform Graph tests (CUG) [@butts_social_2008]. CUG tests allow us to assess if some triadic configurations are more or less likely to occur compared to  random generated networks that present the same size and density of our original network. Specifically, our original network is benchmarked against 2000 random networks using random draws from a Bernoulli graph distribution. We use violin shapes plots to represent the distribution of the triads of the simulated data and we plot in red the triad count of our original network [@adler_vioplot_2020]. 
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, out.width="50%"}
+
+vioplot(random.triad_fr1[,1], 
+random.triad_fr1[,2],
+random.triad_fr1[,3],
+random.triad_fr1[,4],
+random.triad_fr1[,6],
+random.triad_fr1[,6],
+random.triad_fr1[,7],
+random.triad_fr1[,8], 
+names=colnames(random.triad_fr1)[1:8],
+col="honeydew2", 
+colMed = "lightseagreen", 
+rectCol = "azure3", 
+lineCol = "azure3 ",
+main = "Triad Census - Wave 1",
+ylim = c(0, 1500))
+
+# and mark the observed numbers in each category
+points(1:8, 
+triad.count_fr1[c(1:8)], 
+col="red1",
+type="b",
+pch=18,
+cex = 2)
+
+
+vioplot(random.triad_fr1[,9], 
+random.triad_fr1[,10],
+random.triad_fr1[,11],
+random.triad_fr1[,12],
+random.triad_fr1[,13],
+random.triad_fr1[,14],
+random.triad_fr1[,15],
+random.triad_fr1[,16],
+names=colnames(random.triad_fr1)[c(9,10,11,12,13,14,15,16)],
+col="honeydew2", colMed = "lightseagreen", 
+rectCol = "azure3",
+lineCol = "azure3",
+main = "Triad Census - Wave 1",
+ylim = c(0, 500))
+
+points(1:8,
+triad.count_fr1[c(9,10,11,12,13,14,15,16)],
+col="red1",
+type="b", pch=18, cex = 2)
+
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, out.width="50%"}
+
+vioplot(random.triad_fr2[,1], 
+random.triad_fr2[,2],
+random.triad_fr2[,3],
+random.triad_fr2[,4],
+random.triad_fr2[,6],
+random.triad_fr2[,6],
+random.triad_fr2[,7],
+random.triad_fr2[,8], 
+names=colnames(random.triad_fr2)[1:8],
+col="honeydew2", 
+colMed = "lightseagreen", 
+rectCol = "azure3", 
+lineCol = "azure3 ",
+main = "Triad Census - Wave 2",
+ylim = c(0, 1500))
+
+# and mark the observed numbers in each category
+points(1:8, 
+triad.count_fr2[c(1:8)], 
+col="red1",
+type="b",
+pch=18,
+cex = 2)
+
+
+vioplot(random.triad_fr2[,9], 
+random.triad_fr2[,10],
+random.triad_fr2[,11],
+random.triad_fr2[,12],
+random.triad_fr2[,13],
+random.triad_fr2[,14],
+random.triad_fr2[,15],
+random.triad_fr2[,16],
+names=colnames(random.triad_fr2)[c(9,10,11,12,13,14,15,16)],
+col="honeydew2", 
+colMed = "lightseagreen", 
+rectCol = "azure3",
+lineCol = "azure3",
+main = "Triad Census - Wave 2",
+ylim = c(0, 500))
+
+points(1:8,
+triad.count_fr2[c(9,10,11,12,13,14,15,16)],
+col="red1",
+type="b", pch=18, cex = 2)
+
+```
+
+Few notable patterns emerge from the violin plots. First, the triad 021U is less likely to occur, especially in wave 2. This class of triads exhibit egocentric tendencies where a node represents an egocentric individual who receives friendship from two others but does not reciprocates. A similar pattern is observed for the triads 021C, 030C, 120C, where a node is connected to another node through a middle man. According to balance theory, such triads can be a source of distress to at least one of the individual who forms the triad since they open opportunities for intermediary users to hide secret information and relationships. On the contrary, triads 300 (both waves) and 102U (wave 2) are more likely to occur. Additionally -- although minimal --  triad 030T is also slightly more likely to occur in wave 2. This is a transitive balanced triad that can be interpreted as "the friend of my friend is also my friend". 
+
+The triad census provides some evidence that students in the class tend to be more likely to reciprocate friendship bonds or to be embedded in transitive triads as shown by the higher occurrence of triad 120U and 030T in wave 2. Triad 300 can be related to the observed gender homophily in the network. Consistently with the assortativity and sub-graph densities reported in the previous section, triad 300 is -- on average -- more likely to occur in both networks but decrease across the two waves. All in all, the patterns that emerge from the triad census suggests that -- although limited -- students have established multi-way relationships in wave 2 and that the network is getting more balanced.  
+
+
+## Macro-Level: Clustering and Community detection
+
+The main goal of this section is to understand how the network is evolving between the two waves and how individuals cluster together. First, we are going to explore cliques. Second, we turn our attention to community detection algorithms. Before analysing how students group together, we need to transform our graph from directed to undirected due to technical limitations of the R packages used for the analysis. In practical terms, this means that we are going to disregard some of the information on the type of ties (symmetrical or asymmetrical) that connect the various actors. 
+
+We start with cliques. A clique is defined as a maximal complete sub-graph of a given graph, that is a group of people that share all ties and where everybody is connected directly to everyone else. The word "maximal" indicates that no other nodes can be added to the clique without making it less connected [@robins_doing_2015, Ch. 3] In practical terms, it indicates a cohesive group of people that are tightly connected to each other. Similarly to closed triads, cliques are relevant because they foster information transmission and cooperation. 
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, out.width="50%",}
+
+kable(table_m,
+  booktabs = TRUE,
+  linesep = "", # necessary for avoiding line break 
+  caption = "Cliques count", 
+  align = "l",format = "latex", digits=2) %>% 
+  kable_styling(latex_options = c("HOLD_position"))
+
+```
+
+Looking at the maximal cliques of a given size between the two waves, it stands out how the total number of cliques passed from 73 in wave 1 to 36 in wave 2 signalling that complete sub-graphs have drastically reduced in numbers. We notice a slight increase in the number of maximal cliques with a given size of 7 and 8. This can be interpreted that in wave 2 some parts of our graph are more densely connected and cohesive compared to wave 1.  
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, out.width="50%"}
+
+
+plot(g_friend_w1,
+vertex.color = ifelse(drink_w1 == 1, "#fa8072",
+ifelse(drink_w1 == 2, "#cd5c5c", 
+  ifelse(drink_w1 == 3, "#dc143c",
+    ifelse(drink_w1 == 4, "#ff0000", "black")))), 
+vertex.shape = ifelse(sex == 1, "square", "circle"),
+vertex.size = friendship_in_w1*1.5, 
+edge.color = "black",
+edge.width = 1,
+edge.arrow.size = 0.40,
+layout = myLayout ,
+main = "Original Network - Wave 1", 
+label = names ,
+label.dist = 1, 
+label.cex = 1,
+vertex.label.color= "grey28", 
+label.font = 4)
+plot(fast_gready_1, friendship_w1_undirect ,
+  edge.color = "black",
+  edge.width = 1, 
+  edge.arrow.size = 0.25,
+  vertex.size = 15, 
+  layout = myLayout ,
+  main = "Fast and Greedy - Wave 1",
+  vertex.shape = ifelse(sex == 1, "square", "circle"),
+  label = names ,
+  label.dist = 1,
+  label.cex = 1,
+  vertex.label.color= "grey28",
+  label.font = 4)
+plot(rand_walk_1, friendship_w1_undirect ,
+  edge.color = "black",
+  edge.width = 1,
+  edge.arrow.size = 0.25,
+  vertex.size = 15,
+  layout=myLayout ,
+  main = "Random Walk - Wave 1",
+  vertex.shape = ifelse(sex == 1, "square", "circle"),
+  label = names ,
+  label.dist = 1,
+  label.cex = 1,
+  vertex.label.color= "grey28",
+  label.font = 4)
+plot(eigenvector_1, friendship_w1_undirect ,
+  edge.color = "black",
+  edge.width = 1,
+  edge.arrow.size = 0.25,
+  vertex.size = 15,
+  layout=myLayout ,
+  main = "Leading Eigenvector - Wave 1",
+  vertex.shape = ifelse(sex == 1, "square", "circle"),
+  label = names ,
+  label.dist = 1,
+  label.cex = 1,
+  vertex.label.color= "grey28",
+  label.font = 4)
+
+```
+
+Next, we turn to community detection algorithms. Similar to cluster techniques, these algorithms are intended to group nodes according to a similarity criteria with the aim of detecting communities in networks. Usually, community detection algorithms maximize a modularity score for each community  based on how densely connected the nodes within a community are, compared to how connected they are between community [@lancichinetti_benchmark_2008]. In our analysis, we compare three different algorithms: Fast-and-Greedy, Random Walk, and Leading Eigenvector^[The Edge Betweenness algorithm has been excluded since it returned suspicious results compared to the other algorithms included in the analysis.]. Our expectation is that in the second wave we will observe smaller groups given the lower density of the graph and the increase in n-cliques and transitive triads. 
+
+First, we can notice that all the algorithms detect two communities -- one in the upper part of the graph and one in the lower -- that display high gender segregation. We already noticed this pattern in the first section of our analysis when we plotted the friendship network across the two waves. Despite the ability of the algorithms to detect two communities, it is worth noting some differences. The Fast-and-Greedy algorithm is the only algorithm that detects a smaller community located at the centre of the network graph (blue nodes) and composed of student 29 (boy) and student 13, 27 and 04 (girls). As noted before, student 29 is one of the few male students who is popular also among girls. The second community (green nodes) detected by Fast-and-Greedy is composed by the rest of the girls in the class and two of the most popular male students (14, 28). The third community (orange nodes) is composed only by male students and is located in the upper part of the graph. The leading eigenvector algorithm is similar to the Fast-and-Greedy but it does not detect the small community in the centre of the graph and excluded the quite popular male student 14 from the predominately female community. On the contrary, the Random Walk separates the network in a top and bottom part on a clear sex base. The bottom community is composed of only girls and the upper community is composed of a mixture of boys and girls. 
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, out.width="50%"}
+
+
+plot(g_friend_w2,
+vertex.color = ifelse(drink_w2 == 1, "#fa8072",
+ifelse(drink_w2 == 2, "#cd5c5c", 
+  ifelse(drink_w2 == 3, "#dc143c",
+    ifelse(drink_w2 == 4, "#ff0000", "black")))), 
+vertex.shape = ifelse(sex == 1, "square", "circle"),
+vertex.size = friendship_in_w2*1.5, 
+edge.color = "black",
+edge.width = 0.5,
+edge.arrow.size = 0.40,
+layout = myLayout ,
+main = "Original Network - Wave 2", 
+label = names ,
+label.dist = 1, 
+label.cex = 1,
+vertex.label.color= "grey28", 
+label.font = 4)
+plot(fast_gready_2, friendship_w2_undirect ,
+  edge.color = "black",
+  edge.width = 0.5, 
+  edge.arrow.size = 0.25,
+  vertex.size = 15, 
+  layout = myLayout ,
+  main = "Fast and Greedy - Wave 2",
+  vertex.shape = ifelse(sex == 1, "square", "circle"),
+  label = names ,
+  label.dist = 1,
+  label.cex = 1,
+  vertex.label.color= "grey28",
+  label.font = 4)
+plot(rand_walk_2, friendship_w2_undirect ,
+  edge.color = "black",
+  edge.width = 0.5,
+  edge.arrow.size = 0.25,
+  vertex.size = 15,
+  layout=myLayout ,
+  main = "Random Walk - Wave 2",
+  vertex.shape = ifelse(sex == 1, "square", "circle"),
+  label = names ,
+  label.dist = 1,
+  label.cex = 1,
+  vertex.label.color= "grey28",
+  label.font = 4)
+plot(eigenvector_2, friendship_w2_undirect ,
+  edge.color = "black",
+  edge.width = 0.5,
+  edge.arrow.size = 0.25,
+  vertex.size = 15,
+  layout=myLayout ,
+  main = "Leading Eigenvector - Wave 2",
+  vertex.shape = ifelse(sex == 1, "square", "circle"),
+  label = names ,
+  label.dist = 1,
+  label.cex = 1,
+  vertex.label.color= "grey28",
+  label.font = 4)
+
+
+
+```
+
+
+In the second wave, the three algorithms display results that are very similar to the one estimated in wave 1. The detected groups seem unchanged with the only notable exception that now the Fast-and-Greedy detects only two groups. All in all, we believe that the best solution is the clustering resulting from the Fast-and-Greedy algorithm. The reasons are two folds. First, the algorithm is better at detecting that some female and male students are popular across sexes. The cross-group assignment of these students to the two different communities -- one predominately composed by female students and the other one predominately composed by male students -- matches the pattern observed before. Second -- although the groups still display a clear sex pattering -- the Fast-and-Greedy algorithm seems to be better able to detect the increase in sex heterogeneity detect wave 2. Few more boys (02, 03, 14 13 and 27) belong to the predominately female group and female 27 now belongs to the predominately male group. This finding is in line with the lower level of gender segregation across the two waves detected early on. 
+
+
+## Static modelling: ERGMs
+
+In this section, we move to statistical modelling and specifically to Exponential Random Graph Models (ERGMs). ERGMs are useful to explain the global structure of a network while allowing inference on tie prediction on a micro-level. That is, we can use ERGMs to predict the probabilities of ties between individuals given both structural network features (e.g., mutuality, reciprocity, clustering) and individual characteristics of the agents that form the network (age, gender, political orientation). One of the main advantages of ERGMs compared to other SNA tools is that they allow us to get estimates and uncertainty for each modelled effects. Such a feature is really helpful in comparing effect sizes and differences between different networks as we do in this case study.  
+
+An important difference between ERGMs and traditional regression methods such as logit models^[It can be shown that an ERGM is equivalent to a conditional logit model [@hunter_ergm_2008]] is in the way the model generates prediction on ties' probability. In traditional regression models, observations are considered independent. However -- as we noted before -- one of the basic assumptions of SNA is that ties between individuals are not independent. As such, in ERGMs, the effect of adding any tie to the network is conditional on the rest of the network and it is modelled using the change statistic, which is the difference in the network statistic before and after adding the tie. ERGMs are typically estimated by the Monte Carlo Maximum Likelihood Estimation (MCMLE) [@hunter_ergm_2008] that typically relies on Monte Carlo Markov Chains (MCMCs) to draw samples of networks for estimations.
+
+The modelling approach employed in this manuscript is in line with the literature in the field [@hunter_ergm_2008]. I start with with the simplest model of interest, a single-parameter model that posits an equal probability for all edges in the network. Next, if the model converges, I add an additional term until all the relevant effects are modelled. The next step is to check for model fit and proceed to model selection. Likelihood ratio test, AIC, and BIC are used to assess model performance. The best fitting model for each wave is then selected and results are compared across both waves. I only interpret the result of my final (and more complex) model to minimize the possibility of biased estimates due to omitted confounding variables.
+
+First of all, since the model are estimated using MCMC process, before getting into any substantive interpretation of the model fit statistics and of the model coefficients, it is necessary to check that convergence has been properly reached. Extensive MCMC diagnostics show that the trace plots mix well not showing any time trend while the sawtooth patterns in the densities are due to the statistics limited range. The complete MCMC diagnostics are reported in the Appendix.
+
+Next, we examine the goodness of fit measures. We resort on both on classical step-wise approach for model selection and an additional series of goodness of fit measures based on @hunter_goodness_2008. First, we perform a series on Likelihood-ratio Test (L-R) and we assess the goodness of fit of two competing statistical models based on Akaike information criterion (AIC) and Bayesian information criterion (BIC). In general, the model fit statistics indicate that the more complex models fit the data better. However, in both waves, we note that the fit measures sensibly degrade in the last model when drinking habits are modelled. In Wave 1, the L-R test and the AIC suggest that the model fits the data significantly better. However, the BIC statistic that takes into account model parsimony indicates that the model with only gender as a covariate fits the data better. In wave 2, L-R test suggests that adding drinking habits as a predictor does significantly improve the model fit and both AIC and BIC indicates model fit degeneracy. We, this, select Model 4 as our preferred model. 
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, out.width="50%",}
+
+kable(anova_w1,
+  booktabs = TRUE,
+  linesep = "", # necessary for avoiding line break 
+  caption = "Model Selection Wave 1 -  Goodness of fit measures", 
+  align = "l",format = "latex", digits=2) %>% 
+  kable_styling(latex_options = c("HOLD_position"))
+
+kable(anova_w2,
+  booktabs = TRUE,
+  linesep = "", # necessary for avoiding line break 
+  caption = "Model Selection Wave 2 -  Goodness of fit measures", 
+  align = "l",format = "latex", digits=2) %>% 
+  kable_styling(latex_options = c("HOLD_position"))
+
+```
+
+In addition to L-R test, AIC and BIC, I perform an additional series of goodness of fit measures as suggested by @hunter_goodness_2008. In a nutshell, these additional measures simulate networks using the fitted parameters of your model. Then, they compare the statistics from these simulated networks with the counts in your observed network and return a p-values. A p-value closer to one is better since we are looking to minimize the difference between the observed and the simulations networks. The plots displaying the observed and simulated distributions are reported in the Appendix. The plots indicate that Model 4 is not perfect for simulated quantiles, edge-wise shared partner, and geodesic distance. However, the fit measures for the other models do not suggest that simpler models fit the data batter. As such, Model 4 remains the best according to model selection and the fit measures. 
+
+Lastly, we proceed with the interpretation of the results of Model 4. Coefficients are the likelihood of a tie for a unit change in a predictor expressed in log-odds. Calculating predictions from an ERGM is similar for logistic regression. We need to multiply the model coefficients by a set of values, and then transform these log-odds into (conditional) probabilities. The first aspect to notice is that all terms are significant with the exception of geometrically-weighted edgewise shared partners (gwesp) for Wave 1. Thus, in both waves reciprocity and gender segregation are present but clustering happens only in wave 2. The coefficient for the edges represents the density of the network. That is, the probability of any tie (aka the density of the network) is the inverse-logit of the coefficient on edges. The log-odds of a having a tie are -2.62 in wave 1 and -2.33 in wave 2. Since the log-odds are negative, this means that the ties are not part of bigger structures they are not very likely to exist in the networks. The baseline probability of a tie is thus 0.09 in wave 1 and 0.07 in wave 2. 
+
+Next, the log-odds of an existing tie to be reciprocated in wave 1 and wave 2 are 1.50 and 1.2 times higher than for non-reciprocated ties in wave 1, respectively. In term of conditional probability, this means that, if a reciprocal tie exists, then the chances of having a mutual tie are about 25% more in wave 1 and 23% in wave 2, keeping all other predictors constant. Although the difference is minimal, this finding is consistent with what we have noted before: some students have become more isolated across the two waves. 
+
+The third predictor added to the model the geometrically-weighted edgewise shared partners (GWESP). The GWESP term models the tendency for ties that close triangles to be more likely than ties that do not close triangles. It can be interpreted as the likelihood of a tie to be present given the number of actors connected to the nodes. With an $\alpha$ parameter set to 0, the statistic counts the number of edges in the network that are in at least one triangle [@goodreau_statnet_2008]. As said before, it is significant in wave 2 but not in wave 1 indicating that in wave 2 the more triads a tie is part of, the more likely it is to exist. Conditional on the rest of the network, a given edge’s probability of existing depends on how much its presence changes the number of edges in at least one triangle in the network. So, if a tie that closes no triangles, it has a probability of 0.20 while a tie that closes one triangle has a probability of existing of 0.40. The finding is consistent with the change in triad configuration that we noted before. Some students were able to establish multi-way and more balanced relationships in wave 2. 
+
+The fourth set of predictors added to the model are related to the gender of the students. In contrast to the previous interpretation, in the case of a node covariate, we can use the local interpretation of the logit parameter. The term nodematch assess whether students have a tendency to nominate friends of the same gender. In this case, there is a highly statistically significant probability of nominating someone of the same sex compared to someone of the opposite sex. The probability of having a friend of the same gender is around 0.19 and it is rather stable across the two waves indicating that gender segregation is present in both graph and has a moderate effect on friendship. 
+
+Since our graph is directed, we can model the effects of gender in- and out-degree to determine how gender affects the formation of ties. The nodeicov effect models the likelihood of receiving a friendship tie from a student given their gender. In our network, female students have more incoming connections than male students. The odds of a female student to receive a tie is approximate 2 times higher than male students in wave 1 and 1.6 times higher in wave 2. In term of probability, the chances of receiving a friendship tie for a female student are around 0.67 wave 1 and 0.62 in wave 2 compared to a male student. 
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE,results='asis'}
+
+stargazer::stargazer(
+  ergm_4_w1,ergm_4_w2,title = "ERGMs friendship waves comparison",
+  covariate.labels=c("Edges","Mutual","GWESP (Alpha=0)","Sex: Node match (ref: Female)",
+    "Sex: Node icov (ref: Female)", "Sex: Node ocov (ref: Female)"), 
+    dep.var.labels=c("Friendship - Wave 1 ","Friendship - Wave 2"),
+    type="latex",
+    header=FALSE)
+
+```
+
+
+The nodeocov effect indicates the likelihood of nominating another student as a friend given their gender. In this case, we observe an opposite relationship where female students have less outgoing connections compare to male students. For female students, the odds of nominating another student as a friend are approximately 0.55 times lower than male students. In other words, female students nominate a friend only 1/3 of the times compared to male students. 
+
+We can also calculate the odds of a male student to send a tie to a female student. As with standard regression, we account for the intercept, but also need to account for the fact that the sender of the tie is a female (nodeocov). For wave 1, the odds are equal to $exp(-2.62 + 1.17)=0.23$. Similarly, we can calculate the OR of tie forming when the sender of the tie changes from a male to a female. That is, the odds of a male student establishing a relationship with a female student versus the odds of female students establishing a relationship with a female student. Thus, in wave 1 the odds of tie forming to a female student when the sender of the tie changes from a male to a female increase by $exp(-2.62 + 1.17)/exp(-2.62)=3.20$. Similarly to what we noted before. 
+
+## Dynamic modelling: SIENA 
+
+I this session, we switch to dynamic SIENA models. Their main advantage is that the two waves of the friendship and trust network can be merged and analysed longitudinally. Contrary to the static approach used in ERGMs, SIENA models simulate the possible changes for each tie between the waves until the algorithm reproduces the second wave. These changes are often referred as "mini steps" and the transition between the network at time T-1 and time T are modelled by simulating a large number of ministeps where the probabilities of the simulated changes depend on the current state of the network. The parameters produced by the simulation process are then benchmarked against the observed network at time T. 
+
+In a nutshell, using SIENA models we switch perspective from the tie-oriented nature of the ERGMs to an actor-oriented (or agent-based) approach where we simulate a network evolution based on individual choices of creating, maintaining or terminating ties with other actors. SIENA allows researchers to understand if actors' decisions are influenced by the structural characteristic of the network (network dynamics), the characteristics (or behaviour) of the actor itself (ego), or of the other actors present in the network (alters). Technically, the linear combination of the effects is summarised by the so-called objective function that is used to calculate the probability that the simulated network exist [@ripley_manual_2011]. 
+
+$$\begin{aligned}
+f_i(x)=\sum_k(\beta_k s_{ik}(x))
+\end{aligned}
+$$
+
+where $\beta_k$ indicates the parameter and $s_{ik}(x)$ the effects^[The objective function for the behavioural effects is calculated similarly with the only difference a behavioural variable that corresponds to the mean centred original input variable is added to the formula. We refer to the RSiena manual section 5.3.1 and page 86 for a more extensive mathematical specification of the evaluation functions]. 
+
+Similarly to the ERGMs models, we employ a step-wise modelling approach. We start from a simple SIENA model containing the most common structural effects and we progressively add behaviour dynamics and covariate related effects [@veenstra_networkbehavior_2013]. Each consecutive models is estimated using as starting value the estimates from the previous simpler model as suggested by @ripley_manual_2011. For each step, we check that the algorithm has converged using both the t-ratios for convergence and the overall maximum convergence ratio. These statistics are calculated taking into account the deviations between the simulated values and the observed values. Convergence is reached when the absolute t-ratios for convergence is less than 0.1 and the maximum convergence ratio is less than 0.2 [@ripley_manual_2011]. Furthermore, for each model, a series of goodness of fit measures are estimated [@lospinoso_goodness_2019]. In short, these measures compare the observed values with the simulated values and inform us if the end result gives a good representation of our network. 
+
+The SIENA models present good convergence rates and goodness of fit measures for structural effects, drinking behaviour dynamics and gender covariate effects but fail to converge when drinking covariate is treated as a dependent variable are added to the model. The final model, thus, excludes any covariate effects related to predicting the drinking behaviour of the students and display an overall maximum convergence ratio of 0.17. The estimates of the model can be interpreted as log odds for a relationship to exist (friendship) or for a behaviour to change (alcohol use). We consider an included effect as significant if its t-value statistic is larger than 2 in absolute value ($p<=0.05$). 
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, out.width="50%",}
+
+knitr::kable(selected_table_uniplex,
+  booktabs = TRUE,
+  linesep = "", # necessary for avoiding line break 
+  caption = "SIENA Uniplex: Friendship", 
+  align=c("l", rep('r', 4)),
+  format = "latex",
+  digits=2) %>% 
+  kableExtra::kable_styling(latex_options = c("HOLD_position"))
+
+```
+
+First, it is worth noting that the ties between the students are not random. The model estimates that students tends to reciprocate friendships ($reciprocity \beta=1.77, p<=0.05$), and tended to nominate friends of friends as their own friends ($transitive triplets \beta=0.33, p<=0.05$). A negative significant effect for out-degree (out-degree $\beta=-0.16, p<=0.05$) is present, indicating that participants on average selected few peers as friends. Even if the effect is negative, we do not observe a statistically significant tendency towards a hierarchical ordering. The same goes for in-degree-popularity ("Matthew effect") that in our final model is not significant. This means that there is no evidence in our data that popular students become or remain receivers of friendship suggesting that “the rich get richer” effect is not present. 
+
+In relation to covariate effects, the data suggest that students do not select same-gender peers as friends. Additionally, no significant gender ego and alter effects have been found indicating that students’ gender did not affect the amount of given or received friendship nominations. In relation to drinking, the data suggest that drinking positively impacts the number of friendship nominations given by a student (Drinking ego $\beta=0.41, p<=0.05$). However, drinking alter and similarity are not significant suggesting that alcohol use and similarities do not impact the number of received friendship nominations. 
+
+We also included the linear shape effect (overall tendency) and the quadratic shape
+effect of drinking. The former indicates the temporal evolution of the included behavioural variable. The latter is often interpreted as a quadratic preference function for the behaviour. In this case, an indication of drinking addiction. Given the limited tendency to drinking in the class-room under scrutiny and its limited variation over time, we are not surprised that the two effects are not significant. 
+
+
+## Multiplex SIENA model: Friendship and Trust
+
+We now turn to Multiplex models. We refer to multiplex models to those class of models where there are multiple depended network variables that are modelled together [@ripley_manual_2011]. This class of models allows us to test the so-called multiplex structural effects where we model a change in one network on the other network. For instance, if friendship ties depend on trust and vice versa. In short, one network function as the dependent variable, while the other network has the role of explanatory variable (and vice-versa). 
+
+First, it is worth exploring the trust network that has been left aside until now. The graph reveals a sensibility lower density compared to the friendship network equal to 0.07 in wave 1 and 0.06 in wave 2. This suggests that trust is a much more scare feature in the networks under scrutiny and that students are rather careful in trusting someone else. This implies that -- on average -- only a few friends are considered trustworthy. With the exception of student 05, who is really popular as a friend, a friend is not necessarily considered a trustworthy person. In wave 1, the degree distribution reveals that only a few girls are considered relatively trustworthy and have trust ties with both girls and boys (05, 19, 21, 22, 13). This pattern seems to slightly fade in wave 2 even if the same group of girls seems to retain higher in-degree levels for trust ties.   
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, out.width="50%",}
+
+
+plot(t_friend_w1,
+vertex.color = ifelse(drink_w1 == 1, "#fa8072",
+ifelse(drink_w1 == 2, "#cd5c5c", 
+  ifelse(drink_w1 == 3, "#dc143c",
+    ifelse(drink_w1 == 4, "#ff0000", "black")))), 
+vertex.shape = ifelse(sex == 1, "square", "circle"),
+vertex.size = t_in_w1*3, 
+edge.color = "black",
+edge.width = 1,
+edge.arrow.size = 0.40,
+vertex.size = 10,
+layout = myLayout_2 ,
+main = "Trust Network - wave 1", 
+label = names ,
+label.dist = 1, 
+label.cex = 1,
+vertex.label.color= "grey28", 
+label.font = 4)
+
+
+plot(t_friend_w2,
+vertex.color = ifelse(drink_w2 == 1, "#fa8072",
+ifelse(drink_w2 == 2, "#cd5c5c", 
+  ifelse(drink_w2 == 3, "#dc143c",
+    ifelse(drink_w2 == 4, "#ff0000", "black")))), 
+vertex.shape = ifelse(sex == 1, "square", "circle"), 
+vertex.size = t_in_w2*3,
+edge.color = "black",
+edge.width = 1, 
+edge.arrow.size = 0.40,
+vertex.size = 10,
+layout = myLayout_2 ,
+main = "Trust Network - wave 2",
+label = names , 
+label.dist = 1,
+label.cex = 1, 
+vertex.label.color= "grey28",
+label.font = 4)
+
+
+```
+
+The Jaccard index suggests that approximately 20% of the network ties have changed from wave 1 to wave 2. The most notable patter is the number of students who do not trust and are not being trusted by anyone else that increase slightly in the second wave. While student 12 and 26 are able to establish trust relationship in wave 2, student 14, 16 and 09 do not trust and are not trusted by anyone else in the class. An interesting case is student 14 who is trusted by two other students in wave 1 but loses both trust ties in wave 2. Unfortunately, the lack of additional information on the class-room dynamics prevents us to draw any meaningful hypothesis on what happened to student 14. 
+
+As with the previous uniplex SIENA models, we proceed with step-wise modelling approach. We start from a simple SIENA model that containing the most common structural effects and covariates effects and then we progressively add dyadic cross products for the effect of friendship on trust and for the effect of trust on friendship. Drinking habit is omitted because of the previous lack of significance in the friendship network[^However, initial model explorations ravels that adding the behavioural effect of drinking lead to non-convergence of relatively simple models.]. Since our main focus is to assess how each network influences the other, we test 3 different dyadic cross products effects. 
+
+1. First, we test the effect of W on X (X:W) (crprod). This effect is considered the baseline effect and tests the effect of friendship on trust (and vice versa). More specifically, it tests the effect of an $i \rightarrow j$ tie in network A on an $i \rightarrow j$ tie in network B. In other words, it assesses if a trust tie more likely from i to j if i is a friend with j.   
+
+2. Second, we test the effect of incoming W on X (X: reciprocity with W) (crprodRecip). This effect is the tendency for an $i \rightarrow j$ tie in network A on an $i \rightarrow j$ tie in network B. This can be interpreted as the reciprocity across the networks. 
+
+3. Third, we test the effect of mutual ties in W on X (X: mutuality with W) (crprodMutual). In short, it tests the tendency for an $i \rightarrow j$ and an $i \rightarrow j$ tie in network A (or $j \longleftrightarrow i$) on an $i \rightarrow j$ tie in network B. That is, if the reciprocity in one network leads to ties in another network.
+
+At each step, we check if each model displays satisfactory convergence rates and goodness of fit measures. Thresholds, the interpretation of convergence rates, and goodness of fit measures remains the same as uniplex SIENA models and thus not repeated here. 
+
+The multiplex SIENA model present satisfactory maximum convergence rate (0.19), convergence t-ratio (all $<=0.1$), and goodness of fit measures for structural effects, gender covariate effects and the dyadic cross products effect of friendship on trust. Unfortunately, including the effect of trust on friendship leads to serious degeneration of the convergence rates with unreliable model estimates and standard errors. Fine-tuning the model as suggested by the SIENA manual did not lead the model to reach convergence [@ripley_manual_2011]. As such, we are not able to assess the co-evolution of the friendship and trust network. For the purpose of this manuscript, we included and interpret only the effect of friendship on trust, the network structural effects, and the gender covariate effects. 
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, out.width="50%",}
+
+knitr::kable(siena_multiplex_results,
+  booktabs = TRUE,
+  linesep = "", # necessary for avoiding line break 
+  caption = "SIENA Multiplex: Friendship and Trust", 
+  align=c("l", rep('r', 4)),
+  format = "latex",
+  digits=2) %>% 
+  kableExtra::kable_styling(latex_options = c("HOLD_position"))
+
+```
+
+For the friendship network, the only significant effects are reciprocity, the number of transitive triplets, and a negative effect for out-degree. Effect size and direction are similar to the estimated effects for the uniplex model and thus not repeated here. For the trust network, none of the included effects is significant. The same goes for the dyadic cross products. This suggests that a friendship bond does not lead to a trust relationship.
+
+# Discussion
+
+Classroom relationships are extremely interesting for behavioural scientists since they provide valuable insights on how a group of individuals that spend a considerable portion of their time together interact. Additionally, they can provide valuable information on how gender and addictive substances (in this case drinking) impact how adolescents establish connections with their peers or perform in the class. 
+
+For this project, we postulated three different sets of hypotheses in relation to network dynamics and students’ gender and drinking behaviour. Our first hypothesis postulates that the two networks would become more dense and cohesive between the two observed time points (H.1). Our theoretical expectation based on the creation of social capital is -- at least partially -- disconfirmed. Network descriptives, static, and dynamics models suggest that the number of friendship ties and density has decreased between the two waves. It is worth noting that the friendship ties on the class-room do not seem very stable. About half of them have changed between the two waves. However, there is no evidence that students have formed less interconnected clusters between the two-time points. In fact, there is limited evidence of an increase in non-hierarchical clustering suggested through both triad and cliques census and by the SIENA models (transitive triplets). Furthermore, students tend to friendship reciprocate more. All in all -- despite the network under scrutiny does not show any isolated student in wave 2 -- our results show that something might have happened that has disrupted some friendship bonds. However, there is evidence that some of the friendship bonds have become more cohesive and interconnected between the two waves. 
+
+Our second set of hypothesis postulates that both gender and drinking impact friendship formation and bonds. Several pieces of empirical evidence confirm our expectation that gender plays an important role in friendship dynamics (H2.A). Assortativity measures, community detection algorithm, and ERGMs suggest that students selected same-gender peers as friends more often. An interesting finding is how the ERGMs and SIENA models point to different conclusions. ERGMs indicates that gender has a positive effect on friendship but its effect decrease between the two waves. On the contrary, the SIENA models suggest that same-gender has no impact on friendship across the two waves. These results are not necessarily in a conflict between each other. In fact, they suggest that these different methods need to be employed in answering different research questions. ERGMs are tie-oriented, that is, they model the probability of a tie, given the rest of the network. On the contrary, SIENA models are agent-oriented (or agent-based) meaning that they model for the probability of network evolution, depending on network characteristics (network statistics) from the perspective of the actions of the actors. All in all, we can conclude that --  despite the presence of gender segregation -- the two gender groups are not isolated and there is some evidence of a reduction in gender segregation between the two waves. 
+
+Concerning drinking behaviour (H2.B), our data seems to point out that in the class under scrutiny drinking does not have a strong impact on friendships formation. No clear patterns emerge from a visual inspection of the graph, neither from the clustering algorithms. Furthermore, drinking has not been modelled in an ERGMs framework since -- across both waves -- model selection and goodness of fit statistics indicated that a model without drinking habits fits the data significantly better. The only effect that has been found comes from modelling drinking habits longitudinally using SIENA models. The selected SIENA model suggests that drinking positively impacts the number of friendship nominations given by a student. This indicates that alcohol might function as a social lubricant. Students who drink more consider to have more friends in the class. However, this mechanism seems not to work in the opposite direction: in-degree popularity is not affected by a student's drinking behaviour neither by their similarity in regard to their drinking habits. 
+
+Our last hypothesis states that friendship bonds influence trust relationships (and vice-versa). Unfortunately --  with the data at hand -- we are not able to test the hypothesis that trust influences friendship since our SIENA models did not converge. However, we were able to model the effect of friendship on trust. In spite of this, we found that friendship has no effect on trust. This is in line with the exploratory descriptive statistics of the trust network. The density of the network is sensibly lower compared to the friendship one and the Jaccard index suggests that the trust network is more stable than the friendship one. This indicates that adolescents are much more careful in trusting their peers and that trust bonds are more difficult to establish and do not necessarily depends on friendship ties. As such, H3.A is disconfirmed. We cannot infer from the data that friendship bonds lead to the creation of trust relationship among students. 
+
+# Conclusions
+
+In this manuscript, we have analysed the friendship and trust bonds in a high school classroom using a social network analysis approach. By focussing on both micro and macro structures, our study has been able to get valuable insights on how social bonds among students are created or maintained. Furthermore, we were able to study the social-structural effects commonly observed among adolescences, including degree-based structural effects, such as reciprocity and transitivity, and node-level based effects such as homophily and attribute-based effects. Our analysis has been driven by explicit hypotheses about dependencies among network ties in a class-room environment focusing on the impact of gender, drinking habits, and trust. The analyses have been carried out using  both static and dynamic approach. This multi-methods approach allowed us to understand network characteristic and attributes effects both at one time point and over two different time points. 
+
+The findings reported in the manuscript need to be interpreted together with the broad literature that has studied friendship bonds. Literature has overwhelming demonstrated that positive interactions with peers are an essential step to achieve social adaptation throughout childhood and adolescence [@rubin_peer_2013]. Scholars have shown that friendship has a degree of stability and once a bond is formed and individuals strive to maintain these bonds. However, @van_duijn_evolution_2003 has found that early friendship relationships in high school are much more chaotic and unstable compared to friendship bonds established and develop towards the end of the high school period. Our study validates @van_duijn_evolution_2003 findings showing that in the class under scrutiny some initial friendships have dissolved and might have been replaced by neutral and weak friendly relationships. This pattern could be linked to the fact that students get to know each other better and decide to befriend only with few other peers with whom they share a deeper connection or affinity. 
+
+In relation to classroom gender dynamics, @schaefer_fundamental_2010 used SIENA models to show that the creation of friendship ties is strongly influenced by gender homophily effect. This is confirmed also in our analysis: students seem to prefer same-sex classmates. However, we also note that female are less sociable than males and they are more likely to bond with other female students. Although these dynamics are not the focus of our manuscript, they indicate that students might reflect the broader social structure in which they are embedded. In other words, these gender dynamics could be the results of imitation mechanisms that adolescents have gathered from their family, teachers, or non-school related friends. 
+
+Reciprocity, in-degree popularity, and triadic closure effects are also important effects in explaining tie formation [@schaefer_fundamental_2010]. That is, adolescents tend to have reciprocal preferences (reciprocity effect), tend to concentrate their preferences in peers that are also preferred by several students (in-degree popularity effect), and to befriend their friends' friends (triadic closure effect). Our data confirm that these effects are present in the case study under scrutiny. We see an effect of reciprocity, out-degree popularity, and non-hierarchical clustering both from CUG test and SIENA models. However, we found no evidence of in-degree popularity effect. This is interesting given that most of the literature on the topic suggest that adolescent tend to establish friendship relationships with other popular peers [@rubin_peer_2013]. This might indicate that the structure the network is less hierarchical and friendship bonds are established more on forms of dependability and commitment between peers.  
+
+In relation to the co-evolution of networks where nodes are connected by different types of ties (here, friendships and trust), current literature proposes several different theoretical mechanisms that explain the co-evolution of friendship and other types of relationship. Most of the work in this area has been carried out on the simultaneous study of positive and negative friendship ties [for a brief overview and related literature see, @daniel_co-evolution_2016]. Our work is one of the few empirical case studies where this relationship is expanded to the co-evolution of friendship and trust bonds. Using balance to explain the behaviour of adolescents, we postulated that trust bonds foster friendship bonds (and vice-versa). Our study suggests that this is not the case: students are much more careful in establishing trust bonds with their friends suggesting that an unbalanced relationship could be common when friendship and trust are analysed together. 
+
+Despite these findings are informative on how friendship and trust bond are created among adolescents, our study presents several limitations. First, we recoded the friendship network as binary (friend VS non-friend) loosing the more nuanced picture that might emerge from the inclusion of both negative and neutral ties. Indeed, the absence of a tie in our network could mean both a slightly positive, a neutral, or a negative relationship. Second, we have very limited information on the surveyed students. We lack any information on the socio-economic status of their family, smoking behaviour, grades, music taste, personality or physical traits. If included, these factors could better explain the network dynamics its dynamic change. Third, our study is limited to 2 time points. Having more waves would have helped us to better understand the dynamic evolution of the friendship network and might have provided insights on the co-evolution of the friendship and trust networks. For instance, we could have assessed if friendship relationships would have kept decreasing or if new and more isolated groups of students would have emerged over time. Or we could have tested if trust bonds require more time to emerge among adolescents. Lastly, we could have valuable insight in analysing more than one class to test if the pattern and the dynamics that we found in the classroom under scrutiny hold for classes with different characteristics. For instance, what would be the impact of drinking on friendship in a classroom where drinking is more prevalent or where it sensibly increase over time. 
+
+We hope that further research will shed light on some of these points with the aim of better understanding of how adolescent interacts and form friendship and trust bonds. Our effort and the one of other researchers can be useful for education figures and policymakers to design specific educational programs directed to the creation of a positive and mixed-gender environment in high-school classrooms. 
+
+\newpage 
+
+# References
+
+
+```{r, child = "NA_QUASS_exam_script_appendix.rmd"}
+```
+
+
+<div id="refs"></div>
+
+```{r, child = "NA_QUASS_exam_appendix.rmd"}
+```
+
+
+

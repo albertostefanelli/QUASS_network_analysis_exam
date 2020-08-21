@@ -1,0 +1,153 @@
+\newpage
+
+
+# Appendix
+
+We report some additional descriptive and robustness check. For additional statistics and for the entire R Code used generate this manuscript. Please visit this Github page []
+
+## In- and Out-Degree distribution 
+
+```{r,echo=FALSE, message=FALSE, warning=FALSE,out.width="50%"}
+
+
+hist(friendship_out_w1,
+     xlim=c(0,15),
+     ylim=c(0,50),
+     breaks=7,
+     main="Friendship Out-degree distribution in wave 1",
+     xlab="Out-degree",
+     col="black")
+
+hist(friendship_in_w1,
+     xlim=c(0,15),
+     ylim=c(0,50),
+     breaks=16,
+     main="Friendship In-degree distribution in wave 1",
+     xlab="In-degree",
+     col="black")
+
+hist(friendship_out_w2,
+     xlim=c(0,15),
+     ylim=c(0,50),
+     breaks=7,
+     main="Friendship Out-degree distribution in wave 2",
+     xlab="Out-degree",
+     col="black")
+
+hist(friendship_in_w2,
+    xlim=c(0,15),
+    ylim=c(0,50),
+    breaks=16,
+    main="Friendship In-degree distribution in wave 2",
+    xlab="In-degree",
+    col="black")
+
+
+hist(t_out_w1,
+     xlim=c(0,15),
+     ylim=c(0,50),
+     breaks=7,
+     main="Trust Out-degree distribution in wave 1",
+     xlab="Out-degree",
+     col="black")
+
+hist(t_in_w1,
+     xlim=c(0,15),
+     ylim=c(0,50),
+     breaks=16,
+     main="Trust In-degree distribution in wave 1",
+     xlab="In-degree",
+     col="black")
+
+hist(t_out_w2,
+     xlim=c(0,15),
+     ylim=c(0,50),
+     breaks=7,
+     main="Trust Out-degree distribution in wave 2",
+     xlab="Out-degree",
+     col="black")
+
+hist(t_in_w2,
+    xlim=c(0,15),
+    ylim=c(0,50),
+    breaks=16,
+    main="Trust In-degree distribution in wave 2",
+    xlab="In-degree",
+    col="black")
+```
+
+\newpage
+
+## ERGMs 
+
+### Model comparison 
+
+<!-- \blandscape -->
+
+```{r,echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+
+stargazer::stargazer(ergm_1_w1,ergm_1_w2,
+  ergm_2_w1,ergm_2_w2,
+  ergm_3_w1,ergm_3_w2,
+  ergm_4_w1,ergm_4_w2,
+  ergm_5_w1,ergm_5_w2,
+  dep.var.labels=c("W 1 ","W 2",
+  "W 1 ","W 2",
+  "W 1 ","W 2",
+  "W 1 ","W 2",
+  "W 1 ","W 2"
+),
+  font.size="small", 
+  column.sep.width = "1pt",
+  title = "All fitted ERGMs models for friendship (waves comparison)",
+  header=FALSE,
+  type="latex",
+  float.env = "sidewaystable")
+
+```
+
+<!-- \elandscape -->
+
+\newpage 
+
+### Model Diagnostics
+
+We only report the diagnostics for the selected model (Model 4)
+
+
+```{r,echo=FALSE, message=FALSE, warning=FALSE, out.width="50%", fig.cap="MCMC diagnostics Wave 1", fig.pos="H",results='hide', fig.align="center"}
+
+mcmc.diagnostics(ergm_4_w1)
+
+```
+
+
+```{r,echo=FALSE, message=FALSE, warning=FALSE,out.width="50%", fig.cap="GOF Wave 1", fig.pos="H",fig.align="center"}
+
+plot(gof(ergm_4_w1))
+
+```
+
+
+```{r,echo=FALSE, message=FALSE, warning=FALSE,out.width="50%",fig.cap="GOF Wave 2",fig.pos="H",fig.align="center"}
+
+plot(gof(ergm_4_w2))
+
+```
+
+\newpage
+
+## SIENA 
+
+### Uniplex GOF
+
+```{r,cache=FALSE, echo=FALSE, message=FALSE, warning=FALSE,fig.pos="H",results='hide',fig.align="center"}
+
+plot(gof.fr.indegree)
+plot(gof.fr.outdegree)
+plot(gof.fr.geodesic)
+plot(gof.fr.triadcensus, center = TRUE, scale = TRUE)
+
+```
+
+

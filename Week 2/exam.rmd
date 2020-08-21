@@ -1,0 +1,58 @@
+---
+title: Network Analysis Exam (QASS)
+author: Alberto Stefanelli^[[Alberto Stefanelli](https://albertostefanelli.com/) is a PhD Candidate at the Institute for Social and Political Opinion Research (ISPO), KU Leuven. His research interests are related to voting behaviour, radical belief systems, and conspiracy theory. Methods wise, he is interested on graphical causal models, experimental and semi-experimental design, and big data. Email:alberto.stefanelli.main@gmail.com]
+bibliography: /Users/serg/gdrive/academia/library.bib
+link-citations: true
+urlcolor: blue
+abstract: 
+output: 
+    pdf_document:
+      #number_sections: true
+      #toc: true
+      fig_caption: yes
+      fig_width: 7
+      fig_height: 7
+      keep_tex: no
+  # word_document:
+  #   toc: true
+  #   fig_caption: true
+header-includes:
+  - \usepackage{fancyhdr}
+  - \usepackage{longtable}
+  - \usepackage{booktabs}
+  - \usepackage{dcolumn}
+  - \fancyhf{}
+  - \fancyhead[RO]{From Ideological Convergence to Affective Hostility}
+  - \fancyhead[RE]{Alberto Stefanelli}
+  - \fancyfoot[C]{\thepage}
+  - \pagestyle{fancy}
+  - \usepackage{setspace}\doublespacing
+  - \renewcommand{\headrulewidth}{0.4pt}
+  - \renewcommand{\footrulewidth}{0pt}
+  - \usepackage{float}
+  - \DeclareUnicodeCharacter{FB01}{fi}
+  - \usepackage{lscape}
+  - \newcommand{\blandscape}{\begin{landscape}}
+  - \newcommand{\elandscape}{\end{landscape}}
+
+
+
+### BLUE LINK 
+### GRAMMAR CECK
+### FIGURE TOC
+### APPENDIX AFTER BIB 
+
+---
+
+
+<!-- Questions that help in structuring your paper:
+  
+TASK: Analyze your RECENS classroom (the one you do all the individual practices on during the class) with the studied methods and compare the results from static and dynamic models.
+
+
+1.a. What are the main characteristics of the friendship network at the two observations? Are they similar/different?
+1.b. What are the relations between gender, drinking, and friendship in wave 1? How do these change by wave 2?
+2. Which micro patterns are important in explaining the structure of the two friendship networks (separately)?
+3. Which micro mechanisms shape the evolution of the friendship network in your classroom?
+4. State one hypothesis about other micro mechanisms which you could test with the learnt methods. -->
+
